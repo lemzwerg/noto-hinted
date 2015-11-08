@@ -58,48 +58,53 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html \
 #     \
+#     NotoSansHebrew/index.html \
 #     index.html
 #
 #   NotoSansHebrew/NotoSansHebrew-%-G.ttf: \
-#     NotoSansHebrew-%.ttf | NotoSansHebrew; \
+#     NotoSansHebrew-%.ttf \
+#     | NotoSansHebrew; \
 #       $(TTFAUTOHINT) $(TTFAUTOHINT_FLAGS) -w G -F "-G" $< $@
 #   NotoSansHebrew/NotoSansHebrew-%-gGD.ttf: \
-#     NotoSansHebrew-%.ttf | NotoSansHebrew; \
+#     NotoSansHebrew-%.ttf \
+#     | NotoSansHebrew; \
 #       $(TTFAUTOHINT) $(TTFAUTOHINT_FLAGS) -w gGD -F "-gGD" $< $@
 #
 #   NotoSansHebrew/NotoSansHebrew-%-G-he.html: \
-#     waterfall.html.in | NotoSansHebrew; \
-#     sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
-#         -e "s|@lang@|he|" \
-#         -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/he-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
-#         < $< \
-#         > $@
+#     waterfall.html.in \
+#     | NotoSansHebrew; \
+#       sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
+#           -e "s|@lang@|he|" \
+#           -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/he-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
+#           < $< \
+#           > $@
 #   NotoSansHebrew/NotoSansHebrew-%-G-yi.html: \
-#     waterfall.html.in | NotoSansHebrew; \
-#     sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
-#         -e "s|@lang@|yi|" \
-#         -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/yi-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
-#         < $< \
-#         > $@
+#     waterfall.html.in \
+#     | NotoSansHebrew; \
+#       sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
+#           -e "s|@lang@|yi|" \
+#           -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/yi-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
+#           < $< \
+#           > $@
 #   NotoSansHebrew/NotoSansHebrew-%-gGD-he.html: \
-#     waterfall.html.in | NotoSansHebrew; \
-#     sed -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
-#         -e "s|@lang@|he|" \
-#         -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/he-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
-#         < $< \
-#         > $@
+#     waterfall.html.in \
+#     | NotoSansHebrew; \
+#       sed -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
+#           -e "s|@lang@|he|" \
+#           -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/he-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
+#           < $< \
+#           > $@
 #   NotoSansHebrew/NotoSansHebrew-%-gGD-yi.html: \
-#     waterfall.html.in | NotoSansHebrew; \
-#     sed -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
-#         -e "s|@lang@|yi|" \
-#         -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/yi-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
-#         < $< \
-#         > $@
+#     waterfall.html.in \
+#     | NotoSansHebrew; \
+#       sed -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
+#           -e "s|@lang@|yi|" \
+#           -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/yi-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
+#           < $< \
+#           > $@
 #
-#   NotoSansHebrew: ; \
-#       -mkdir $@
-#
-#   INDEX_ENTRIES += \
+#   NotoSansHebrew/index.html: \
+#     index-sub.html.in \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-he.html \
@@ -107,7 +112,19 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
-#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html \
+#     | NotoSansHebrew; \
+#       sed -e "s|@font-family@|NotoSansHebrew|" \
+#           -e "s|@font-list@|$$(foreach f,$$(wordlist 2,$$(words $$^),$$^), \
+#               <li><a href=\"$$(notdir $$(f))\">$$(notdir $$(basename $$(f)))</a></li>\\$$(Newline))|" \
+#           -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
+#           < $$< \
+#           > $$@
+#
+#   INDEX_ENTRIES += NotoSansHebrew/index.html
+#
+#   NotoSansHebrew: ; \
+#       -mkdir $@
 
 
 # We use temporary variables to make the code more readable.  Note, however,
@@ -135,12 +152,15 @@ define Html_ =
   h_hmode := $$(strip $(3))
   h_lang := $$(strip $(4))
 
-  $$(h_fam)/$$(h_fam)-%-$$(h_hmode)-$$(h_lang).html: waterfall.html.in | $$(h_fam); \
-    sed -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
-        -e "s|@lang@|$$(strip $(4))|g" \
-        -e "s|@text@|`cat $$(SAMPLE_TEXT_DIR)/$$(strip $(4))-$$(strip $(2))_$$(SAMPLE_TEXT_SUFFIX)`|g" \
-        < $$< \
-        > $$@
+  $$(h_fam)/$$(h_fam)-%-$$(h_hmode)-$$(h_lang).html: \
+    waterfall.html.in \
+    | $$(h_fam); \
+\
+      sed -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
+          -e "s|@lang@|$$(strip $(4))|g" \
+          -e "s|@text@|`cat $$(SAMPLE_TEXT_DIR)/$$(strip $(4))-$$(strip $(2))_$$(SAMPLE_TEXT_SUFFIX)`|g" \
+          < $$< \
+          > $$@
 endef
 
 
@@ -152,14 +172,20 @@ define FontHtml_ =
   fh_lang := $$(strip $(3))
   fh_hmode := $$(strip $(4))
 
-  $$(fh_fam)/$$(fh_fam)-%-$$(fh_hmode).ttf: $$(fh_fam)-%.ttf | $$(fh_fam); \
-    $$(TTFAUTOHINT) $$(TTFAUTOHINT_FLAGS) \
-      -w $$(strip $(4)) -F "-$$(strip $(4))" $$< $$@
+  $$(fh_fam)/$$(fh_fam)-%-$$(fh_hmode).ttf: \
+    $$(fh_fam)-%.ttf \
+    | $$(fh_fam); \
+\
+      $$(TTFAUTOHINT) $$(TTFAUTOHINT_FLAGS) \
+        -w $$(strip $(4)) -F "-$$(strip $(4))" $$< $$@
 
   $$(foreach l,$$(fh_lang), \
     $$(call Html, $(1), $(2), $(4), $$(l)))
 endef
 
+
+# Note the double-colon rule to have one recipe per `FontFamily' call for
+# target `all'.
 
 FontFamily = $(eval $(call FontFamily_, $(1), $(2), $(3), $(4)))
 
@@ -169,17 +195,31 @@ define FontFamily_ =
   ff_scr := $$(strip $(3))
   ff_lang := $$(strip $(4))
 
-  all: $$(foreach s,$$(ff_sty), \
-         $$(foreach hm,$$(HINTING_MODES), \
-           $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm).ttf \
-           $$(foreach l,$$(ff_lang), \
-             $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html))) \
-       index.html
+  all:: \
+    $$(foreach s,$$(ff_sty), \
+      $$(foreach hm,$$(HINTING_MODES), \
+        $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm).ttf \
+        $$(foreach l,$$(ff_lang), \
+          $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html))) \
+    $$(ff_fam)/index.html \
+    index.html
 
-  INDEX_ENTRIES += $$(foreach s,$$(ff_sty), \
-                     $$(foreach hm,$$(HINTING_MODES), \
-                       $$(foreach l,$$(ff_lang), \
-                         $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html)))
+  $$(ff_fam)/index.html: \
+    index-sub.html.in \
+    $$(foreach s,$$(ff_sty), \
+      $$(foreach hm,$$(HINTING_MODES), \
+        $$(foreach l,$$(ff_lang), \
+          $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html))) \
+    | $$(ff_fam); \
+\
+      sed -e "s|@font-family@|$$(ff_fam)|" \
+          -e "s|@font-list@|$$(foreach f,$$(wordlist 2,$$(words $$^),$$^), \
+              <li><a href=\"$$(notdir $$(f))\">$$(notdir $$(basename $$(f)))</a></li>\\$$(Newline))|" \
+          -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
+          < $$< \
+          > $$@
+
+  INDEX_ENTRIES += $$(ff_fam)/index.html
 
   $$(foreach hm,$$(HINTING_MODES), \
     $$(call FontHtml, $(1), $(3), $(4), $$(hm)))
@@ -198,12 +238,15 @@ endef
 Index = $(eval $(Index_))
 
 define Index_ =
-  index.html: index.html.in $$(INDEX_ENTRIES); \
-    sed -e "s|@font-list@|$$(foreach f,$$(INDEX_ENTRIES), \
-              <li><a href=\"$$(f)\">$$(notdir $$(basename $$(f)))</a></li>\\$$(Newline))|" \
-        -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
-        < $$< \
-        > $$@
+  index.html: \
+    index.html.in \
+    $$(INDEX_ENTRIES); \
+\
+      sed -e "s|@font-list@|$$(foreach f,$$(INDEX_ENTRIES), \
+              <li><a href=\"$$(f)\">$$(subst /index.html,,$$(f))</a></li>\\$$(Newline))|" \
+          -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
+          < $$< \
+          > $$@
 endef
 
 
