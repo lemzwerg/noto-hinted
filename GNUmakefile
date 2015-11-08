@@ -64,4 +64,8 @@ $(call FontFamily, NotoNastaliqUrdu, Regular,      Arab, ur)
 $(call FontFamily, NotoSansLao,      Regular Bold, Laoo, lo)
 $(call FontFamily, NotoSerifLao,     Regular Bold, Laoo, lo)
 
+# This macro regenerates `index.html' if necessary.
+#
+$(Index)
+
 # eof

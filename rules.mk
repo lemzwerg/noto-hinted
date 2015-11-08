@@ -55,8 +55,10 @@
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-yi.html \
-#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html
-#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html \
+#     \
+#     index.html
 #
 #   NotoSansHebrew/NotoSansHebrew-%-G.ttf: \
 #     NotoSansHebrew-%.ttf | NotoSansHebrew; \
@@ -96,6 +98,16 @@
 #
 #   NotoSansHebrew: ; \
 #       -mkdir $@
+#
+#   INDEX_ENTRIES += \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G-yi.html \
+#     NotoSansHebrew/NotoSansHebrew-Regular-gGD-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-G-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-G-yi.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html
 
 
 # We use temporary variables to make the code more readable.  Note, however,
@@ -161,7 +173,13 @@ define FontFamily_ =
          $$(foreach hm,$$(HINTING_MODES), \
            $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm).ttf \
            $$(foreach l,$$(ff_lang), \
-             $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html)))
+             $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html))) \
+       index.html
+
+  INDEX_ENTRIES += $$(foreach s,$$(ff_sty), \
+                     $$(foreach hm,$$(HINTING_MODES), \
+                       $$(foreach l,$$(ff_lang), \
+                         $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html)))
 
   $$(foreach hm,$$(HINTING_MODES), \
     $$(call FontHtml, $(1), $(3), $(4), $$(hm)))
@@ -170,7 +188,32 @@ define FontFamily_ =
     -mkdir $$@
 endef
 
+
+define Newline
+
+
+endef
+
+
+Index = $(eval $(Index_))
+
+define Index_ =
+  index.html: index.html.in $$(INDEX_ENTRIES); \
+    sed -e "s|@font-list@|$$(foreach f,$$(INDEX_ENTRIES), \
+              <li><a href=\"$$(f)\">$$(notdir $$(basename $$(f)))</a></li>\\$$(Newline))|" \
+        -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
+        < $$< \
+        > $$@
+endef
+
+
 .PHONY: all
+.DEFAULT_GOAL := all
+
 VPATH += $(NOTO_DIR)
+
+# We have to initialize INDEX_ENTRIES as being simply expanded so that the
+# `+=' operator in `FontFamily' works correctly.
+INDEX_ENTRIES :=
 
 # eof
