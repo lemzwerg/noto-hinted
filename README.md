@@ -11,12 +11,12 @@ This repository contains
 
   * a Makefile used to create the fonts and HTML test pages.
 
-You can view the HTML files in the repository by prepending
-`htmlpreview.github.io/?` to the address, for example
+Go to
 
-  http://htmlpreview.github.io/?https://github.com/lemzwerg/noto-hinted/blob/master/NotoNaskhArabic/NotoNaskhArabic-Bold-G-ar.html
+  https://rawgit.com/lemzwerg/noto-hinted/master/
 
-Alternatively, replace `github` with `rawgit`, and omit the `blob/` part of
-the URL, for example
+or
 
-  https://rawgit.com/lemzwerg/noto-hinted/master/NotoNaskhArabic/NotoNaskhArabic-Bold-G-ar.html
+  http://htmlpreview.github.io/?https://github.com/lemzwerg/noto-hinted/blob/master/index.html
+
+to view the top-level index file of the HTML test pages.
