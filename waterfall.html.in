@@ -47,7 +47,7 @@
 </head>
 
 <body>
-  <h1>@font-name@</h1>
+  <h1>@font-name@&nbsp;&nbsp;<small><small>@font-version@</small></small></h1>
 
   <p style="font-size: 9px;" lang="@lang@">9px:
     <span class="noto">@text@</span></p>

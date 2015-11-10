@@ -38,6 +38,10 @@ TTFAUTOHINT ?= ../ttfautohint/frontend/ttfautohint
 #
 TTFAUTOHINT_FLAGS ?= -t
 
+# The ftdump binary, a FreeType demo program.
+#
+FTDUMP ?= ftdump
+
 # Hinting modes for ttfautohint.  This sets ttfautohint option `-w'.  The
 # modes are also added as a suffix to both the output font name (ttfautohint
 # option `-F') and the output font's file name (via Makefile rules).

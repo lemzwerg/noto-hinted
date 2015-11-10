@@ -29,10 +29,11 @@
 # The following variables must be set; see the top-level `Makefile' for
 # explanations.
 #
+#   FTDUMP
 #   HINTING_MODES
+#   SAMPLE_TEXT_SUFFIX
 #   TTFAUTOHINT
 #   TTFAUTOHINT_FLAGS
-#   SAMPLE_TEXT_SUFFIX
 #
 # We create a subdirectory `f' for all output files of font family `f'.
 #
@@ -165,9 +166,13 @@ define Html_ =
   $$(h_fam)/$$(h_fam)-%-$$(h_hmode)-$$(h_lang).html: \
     waterfall.html.in \
     $$(h_lang)-$$(h_scr)_$$(SAMPLE_TEXT_SUFFIX) \
+    $$(h_fam)/$$(h_fam)-%-$$(h_hmode).ttf \
     | $$(h_fam); \
 \
+      version=`$$(FTDUMP) -n $$(word 3,$$^) \
+               | sed -n '/; ttfautohint/ { s/ *"//g; p }'`; \
       sed -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
+          -e "s|@font-version@|$$$$version|" \
           -e "s|@lang@|$$(strip $(4))|g" \
           -e "s|@text@|`cat $$(word 2,$$^)`|g" \
           < $$< \
