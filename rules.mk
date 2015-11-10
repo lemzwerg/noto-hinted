@@ -32,7 +32,6 @@
 #   HINTING_MODES
 #   TTFAUTOHINT
 #   TTFAUTOHINT_FLAGS
-#   SAMPLE_TEXT_DIR
 #   SAMPLE_TEXT_SUFFIX
 #
 # We create a subdirectory `f' for all output files of font family `f'.
@@ -48,7 +47,7 @@
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD.ttf \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G.ttf \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD.ttf \
-#     \
+#   \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-he.html \
@@ -57,49 +56,59 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html \
-#     \
+#   \
 #     NotoSansHebrew/index.html \
 #     index.html
 #
 #   NotoSansHebrew/NotoSansHebrew-%-G.ttf: \
 #     NotoSansHebrew-%.ttf \
 #     | NotoSansHebrew; \
+#   \
 #       $(TTFAUTOHINT) $(TTFAUTOHINT_FLAGS) -w G -F "-G" $< $@
 #   NotoSansHebrew/NotoSansHebrew-%-gGD.ttf: \
 #     NotoSansHebrew-%.ttf \
 #     | NotoSansHebrew; \
+#   \
 #       $(TTFAUTOHINT) $(TTFAUTOHINT_FLAGS) -w gGD -F "-gGD" $< $@
 #
 #   NotoSansHebrew/NotoSansHebrew-%-G-he.html: \
 #     waterfall.html.in \
+#     he-Hebr_$(SAMPLE_TEXT_SUFFIX) \
 #     | NotoSansHebrew; \
+#   \
 #       sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
 #           -e "s|@lang@|he|" \
-#           -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/he-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
+#           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
 #           > $@
 #   NotoSansHebrew/NotoSansHebrew-%-G-yi.html: \
 #     waterfall.html.in \
+#     yi-Hebr_$(SAMPLE_TEXT_SUFFIX) \
 #     | NotoSansHebrew; \
+#   \
 #       sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
 #           -e "s|@lang@|yi|" \
-#           -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/yi-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
+#           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
 #           > $@
 #   NotoSansHebrew/NotoSansHebrew-%-gGD-he.html: \
 #     waterfall.html.in \
+#     he-Hebr_$(SAMPLE_TEXT_SUFFIX) \
 #     | NotoSansHebrew; \
+#   \
 #       sed -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
 #           -e "s|@lang@|he|" \
-#           -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/he-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
+#           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
 #           > $@
 #   NotoSansHebrew/NotoSansHebrew-%-gGD-yi.html: \
 #     waterfall.html.in \
+#     yi-Hebr_$(SAMPLE_TEXT_SUFFIX) \
 #     | NotoSansHebrew; \
+#   \
 #       sed -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
 #           -e "s|@lang@|yi|" \
-#           -e "s|@text@|`cat $(SAMPLE_TEXT_DIR)/yi-Hebr_$(SAMPLE_TEXT_SUFFIX)`|" \
+#           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
 #           > $@
 #
@@ -114,6 +123,7 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html \
 #     | NotoSansHebrew; \
+#   \
 #       sed -e "s|@font-family@|NotoSansHebrew|" \
 #           -e "s|@font-list@|$$(foreach f,$$(wordlist 2,$$(words $$^),$$^), \
 #               <li><a href=\"$$(notdir $$(f))\">$$(notdir $$(basename $$(f)))</a></li>\\$$(Newline))|" \
@@ -154,11 +164,12 @@ define Html_ =
 
   $$(h_fam)/$$(h_fam)-%-$$(h_hmode)-$$(h_lang).html: \
     waterfall.html.in \
+    $$(h_lang)-$$(h_scr)_$$(SAMPLE_TEXT_SUFFIX) \
     | $$(h_fam); \
 \
       sed -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
           -e "s|@lang@|$$(strip $(4))|g" \
-          -e "s|@text@|`cat $$(SAMPLE_TEXT_DIR)/$$(strip $(4))-$$(strip $(2))_$$(SAMPLE_TEXT_SUFFIX)`|g" \
+          -e "s|@text@|`cat $$(word 2,$$^)`|g" \
           < $$< \
           > $$@
 endef
@@ -253,7 +264,8 @@ endef
 .PHONY: all
 .DEFAULT_GOAL := all
 
-VPATH += $(NOTO_DIR)
+VPATH += $(NOTO_DIR) \
+         $(SAMPLE_TEXT_DIR)
 
 # We have to initialize INDEX_ENTRIES as being simply expanded so that the
 # `+=' operator in `FontFamily' works correctly.
