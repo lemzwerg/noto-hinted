@@ -49,6 +49,10 @@ FTDUMP ?= ftdump
 # `G' means strong hinting for GDI ClearType only, `gGD' indicates strong
 # hinting for all hinting modes (grayscale, GDI, and DWrite ClearType).
 #
+# [If you use more than two hinting modes, there is a harmless buglet: Some
+# links to the `same font, next hinting mode' links on the waterfall pages
+# will not be correctly set.]
+#
 HINTING_MODES ?= G gGD
 
 

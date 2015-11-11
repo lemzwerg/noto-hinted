@@ -43,6 +43,11 @@
 </head>
 
 <body>
+  <p>
+    <a href="../index.html">Noto</a>&nbsp;&rsaquo;
+    @font-family@
+  </p>
+
   <h1>@font-family@ fonts hinted with ttfautohint</h1>
 
   <ul>

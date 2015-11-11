@@ -75,9 +75,17 @@
 #   NotoSansHebrew/NotoSansHebrew-%-G-he.html: \
 #     waterfall.html.in \
 #     he-Hebr_$(SAMPLE_TEXT_SUFFIX) \
+#     NotoSansHebrew/NotoSansHebrew-%-G.ttf \
 #     | NotoSansHebrew; \
 #   \
-#       sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
+#       version=`$(FTDUMP) -n $(word 3,$^) \
+#                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
+#       next="$(filter-out G,$(HINTING_MODES))"; \
+#       sed -e "s|@font-family@|NotoSansHebrew|g" \
+#           -e "s|@font-name@|NotoSansHebrew-$*-G| \
+#           -e "s|@font-version@|$$version|" \
+#           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
+#           -e "s|@html-next@|NotoSansHebrew-$*-$$next-he.html|" \
 #           -e "s|@lang@|he|" \
 #           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
@@ -85,9 +93,17 @@
 #   NotoSansHebrew/NotoSansHebrew-%-G-yi.html: \
 #     waterfall.html.in \
 #     yi-Hebr_$(SAMPLE_TEXT_SUFFIX) \
+#     NotoSansHebrew/NotoSansHebrew-%-G.ttf \
 #     | NotoSansHebrew; \
 #   \
-#       sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
+#       version=`$(FTDUMP) -n $(word 3,$^) \
+#                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
+#       next="$(filter-out G,$(HINTING_MODES))"; \
+#       sed -e "s|@font-family@|NotoSansHebrew|g" \
+#           -e "s|@font-name@|NotoSansHebrew-$*-G| \
+#           -e "s|@font-version@|$$version|" \
+#           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
+#           -e "s|@html-next@|NotoSansHebrew-$*-$$next-yi.html|" \
 #           -e "s|@lang@|yi|" \
 #           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
@@ -95,9 +111,17 @@
 #   NotoSansHebrew/NotoSansHebrew-%-gGD-he.html: \
 #     waterfall.html.in \
 #     he-Hebr_$(SAMPLE_TEXT_SUFFIX) \
+#     NotoSansHebrew/NotoSansHebrew-%-gGD.ttf \
 #     | NotoSansHebrew; \
 #   \
-#       sed -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
+#       version=`$(FTDUMP) -n $(word 3,$^) \
+#                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
+#       next="$(filter-out gGD,$(HINTING_MODES))"; \
+#       sed -e "s|@font-family@|NotoSansHebrew|g" \
+#           -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
+#           -e "s|@font-version@|$$version|" \
+#           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
+#           -e "s|@html-next@|NotoSansHebrew-$*-$$next-he.html|" \
 #           -e "s|@lang@|he|" \
 #           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
@@ -105,9 +129,17 @@
 #   NotoSansHebrew/NotoSansHebrew-%-gGD-yi.html: \
 #     waterfall.html.in \
 #     yi-Hebr_$(SAMPLE_TEXT_SUFFIX) \
+#     NotoSansHebrew/NotoSansHebrew-%-gGD.ttf \
 #     | NotoSansHebrew; \
 #   \
-#       sed -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
+#       version=`$(FTDUMP) -n $(word 3,$^) \
+#                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
+#       next="$(filter-out gGD,$(HINTING_MODES))"; \
+#       sed -e "s|@font-family@|NotoSansHebrew|g" \
+#           -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
+#           -e "s|@font-version@|$$version|" \
+#           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
+#           -e "s|@html-next@|NotoSansHebrew-$*-$$next-yi.html|" \
 #           -e "s|@lang@|yi|" \
 #           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
@@ -126,11 +158,11 @@
 #     | NotoSansHebrew; \
 #   \
 #       sed -e "s|@font-family@|NotoSansHebrew|" \
-#           -e "s|@font-list@|$$(foreach f,$$(wordlist 2,$$(words $$^),$$^), \
-#               <li><a href=\"$$(notdir $$(f))\">$$(notdir $$(basename $$(f)))</a></li>\\$$(Newline))|" \
+#           -e "s|@font-list@|$(foreach f,$(wordlist 2,$(words $^),$^), \
+#               <li><a href=\"$(notdir $(f))\">$(notdir $(basename $(f)))</a></li>\\$(Newline))|" \
 #           -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
-#           < $$< \
-#           > $$@
+#           < $< \
+#           > $@
 #
 #   INDEX_ENTRIES += NotoSansHebrew/index.html
 #
@@ -170,9 +202,13 @@ define Html_ =
     | $$(h_fam); \
 \
       version=`$$(FTDUMP) -n $$(word 3,$$^) \
-               | sed -n '/; ttfautohint/ { s/ *"//g; p }'`; \
-      sed -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
+               | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
+      next="$$(filter-out $$(strip $(3)),$$(HINTING_MODES))"; \
+      sed -e "s|@font-family@|$$(strip $(1))|g" \
+          -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
           -e "s|@font-version@|$$$$version|" \
+          -e "s|@font-next@|$$(strip $(1))-$$*-$$$$next|" \
+          -e "s|@html-next@|$$(strip $(1))-$$*-$$$$next-$$(strip $(4)).html|" \
           -e "s|@lang@|$$(strip $(4))|g" \
           -e "s|@text@|`cat $$(word 2,$$^)`|g" \
           < $$< \
@@ -228,7 +264,7 @@ define FontFamily_ =
           $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html))) \
     | $$(ff_fam); \
 \
-      sed -e "s|@font-family@|$$(ff_fam)|" \
+      sed -e "s|@font-family@|$$(strip $(1))|" \
           -e "s|@font-list@|$$(foreach f,$$(wordlist 2,$$(words $$^),$$^), \
               <li><a href=\"$$(notdir $$(f))\">$$(notdir $$(basename $$(f)))</a></li>\\$$(Newline))|" \
           -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \

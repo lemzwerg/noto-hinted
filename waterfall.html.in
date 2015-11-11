@@ -39,14 +39,31 @@
       src: url("@font-name@.ttf");
       text-rendering: optimizeLegibility; }	
 
-    span.noto { font-family: "@font-name@"; }
-    p { white-space: nowrap; }
+    span.noto {
+      font-family: "@font-name@";
+    }
+    span.flushright {
+      float: right;
+    }
+
+    p {
+      white-space: nowrap;
+    }
   </style>
 
   <title>@font-name@</title>
 </head>
 
 <body>
+  <p>
+    <a href="../index.html">Noto</a>&nbsp;&rsaquo;
+    <a href="index.html">@font-family@</a>&nbsp;&rsaquo;
+    @font-name@ (@lang@)
+    <span class="flushright">
+      <a href="@html-next@">@font-next@</a>
+    </span>
+  </p>
+
   <h1>@font-name@&nbsp;&nbsp;<small><small>@font-version@</small></small></h1>
 
   <p style="font-size: 9px;" lang="@lang@">9px:
