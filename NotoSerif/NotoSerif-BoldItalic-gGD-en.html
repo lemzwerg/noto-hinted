@@ -39,6 +39,10 @@
       src: url("NotoSerif-BoldItalic-gGD.ttf");
       text-rendering: optimizeLegibility; }	
 
+    div.main {
+      width: 1024px;
+      overflow: hidden; }
+
     span.noto {
       font-family: "NotoSerif-BoldItalic-gGD";
     }
@@ -47,6 +51,8 @@
     }
 
     p {
+      margin-top: 0;
+      margin-bottom: 1ex;
       white-space: nowrap;
     }
   </style>
@@ -55,6 +61,7 @@
 </head>
 
 <body>
+<div class="main">
   <p>
     <a href="../index.html">Noto</a>&nbsp;&rsaquo;
     <a href="index.html">NotoSerif</a>&nbsp;&rsaquo;
@@ -110,5 +117,6 @@
     <span class="noto">All human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood.</span></p>
   <p style="font-size: 30px;" lang="en">30px:
     <span class="noto">All human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood.</span></p>
+</div>
 </body>
 </html>

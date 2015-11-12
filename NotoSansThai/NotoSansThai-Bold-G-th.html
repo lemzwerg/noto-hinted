@@ -39,6 +39,10 @@
       src: url("NotoSansThai-Bold-G.ttf");
       text-rendering: optimizeLegibility; }	
 
+    div.main {
+      width: 1024px;
+      overflow: hidden; }
+
     span.noto {
       font-family: "NotoSansThai-Bold-G";
     }
@@ -47,6 +51,8 @@
     }
 
     p {
+      margin-top: 0;
+      margin-bottom: 1ex;
       white-space: nowrap;
     }
   </style>
@@ -55,6 +61,7 @@
 </head>
 
 <body>
+<div class="main">
   <p>
     <a href="../index.html">Noto</a>&nbsp;&rsaquo;
     <a href="index.html">NotoSansThai</a>&nbsp;&rsaquo;
@@ -110,5 +117,6 @@
     <span class="noto">เราทุกคนเกิดมาอย่างอิสระ เราทุกคนมีความคิดและความเข้าใจเป็นของเราเอง เราทุกคนควรได้รับการปฏิบัติในทางเดียวกัน.</span></p>
   <p style="font-size: 30px;" lang="th">30px:
     <span class="noto">เราทุกคนเกิดมาอย่างอิสระ เราทุกคนมีความคิดและความเข้าใจเป็นของเราเอง เราทุกคนควรได้รับการปฏิบัติในทางเดียวกัน.</span></p>
+</div>
 </body>
 </html>
