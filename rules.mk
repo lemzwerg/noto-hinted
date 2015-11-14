@@ -181,6 +181,11 @@
 # The pattern character (`%') in the created rules is used to match the font
 # style (`Regular', `Bold', etc.).
 
+define Newline
+
+
+endef
+
 
 Snapshots = $(eval $(call Snapshots_, $(1), $(2), $(3), $(4), $(5)))
 
@@ -231,12 +236,23 @@ define HtmlSnapshots_ =
 \
       version=`$$(FTDUMP) -n $$(word 3,$$^) \
                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
-      next="$$(filter-out $$(strip $(3)),$$(HINTING_MODES))"; \
-      sed -e "s|@font-family@|$$(strip $(1))|g" \
-          -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
+      next="$$(filter-out $$(strip $(3)),$$(HINTING_MODES))" \
+      pngstem="$$(notdir $$(basename $$@))" \
+      linkline="<a href=\"../index.html\">Noto</a>\&nbsp;\&rsaquo;\\$$(Newline) \
+                <a href=\"index.html\">$$(strip $(1))</a>\&nbsp;\&rsaquo;\\$$(Newline) \
+                $$(strip $(1))-$$*-$$(strip $(3)) ($$(strip $(4)))" \
+      links="$$$$linkline\&nbsp;\&rsaquo;\\$$(Newline) \
+              <a href=\"$$$$pngstem-$$(firstword $$(BROWSERS)).png\">$$(firstword $$(BROWSERS))</a> \
+             $$(foreach b,$$(wordlist 2,$$(words $$(BROWSERS)),$$(BROWSERS)), \
+               <br>\\$$(Newline) \
+               <span class=\"hidden\">\\$$(Newline) \
+                 $$$$linkline</span>\&nbsp;\&rsaquo;\\$$(Newline) \
+               <a href=\"$$$$pngstem-$$(b).png\">$$(b)</a>\\$$(Newline))"; \
+      sed -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
           -e "s|@font-version@|$$$$version|" \
           -e "s|@font-next@|$$(strip $(1))-$$*-$$$$next|" \
           -e "s|@html-next@|$$(strip $(1))-$$*-$$$$next-$$(strip $(4)).html|" \
+          -e "s|@links@|$$$$links|" \
           -e "s|@lang@|$$(strip $(4))|g" \
           -e "s|@text@|`cat $$(word 2,$$^)`|g" \
           < $$< \
@@ -321,12 +337,6 @@ define FontFamily_ =
 
   $$(ff_fam): ; \
     -mkdir $$@
-endef
-
-
-define Newline
-
-
 endef
 
 
