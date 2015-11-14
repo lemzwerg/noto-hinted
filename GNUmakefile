@@ -17,17 +17,30 @@
 include rules.mk
 
 
+# The following programs are expected to be in $PATH.
+#
+#   cat
+#   curl
+#   date
+#   mkdir
+#   pngtopnm, pnmtopng, pnmcrop (from the netpbm package)
+#   rm
+#   sed
+
+
 # The directory where the unhinted Noto fonts reside.
+#
 NOTO_DIR ?= ../noto-fonts/unhinted
 
 # The directory where the sample texts are stored.  The name of the files
 # must be of the form `<lang>-<script>_$(SAMPLE_TEXT_SUFFIX)', where <lang>
-# is a two-letter tag (given as the fourth argument to the `FontFamily'
-# macro below) and <script> a four-letter tag (the third argument).
+# is a two-letter or three-letter tag (given as the fourth argument to the
+# `FontFamily' macro below) and <script> a four-letter tag (the third
+# argument).
 #
 # Example: `ar-Arab_uhdr.txt'.
 #
-SAMPLE_TEXT_DIR ?= ../nototools/sample_texts
+SAMPLE_TEXT_DIR    ?= ../nototools/sample_texts
 SAMPLE_TEXT_SUFFIX ?= udhr.txt
 
 # The ttfautohint binary.
@@ -38,9 +51,25 @@ TTFAUTOHINT ?= ../ttfautohint/frontend/ttfautohint
 #
 TTFAUTOHINT_FLAGS ?= -t
 
-# The ftdump binary, a FreeType demo program.
+# The ftdump binary, a FreeType demo program.  We use it to extract a font's
+# version string from its `name' table.
 #
 FTDUMP ?= ftdump
+
+# The URL prefix to access HTML pages for the `noto-hinted' repository.
+# Note that directly accessing github.com doesn't work since HTML pages
+# (intentionally) get a `Content-Type' of `text/plain'.
+#
+RAWGIT ?= https://rawgit.com/lemzwerg/noto-hinted/master
+
+# A program to access the browserstack API on the command line.  We are
+# using a Ruby gem called `screenshooter'; see
+#
+#  https://github.com/bennylope/screenshooter
+#
+# for more.
+#
+SCREENSHOOTER ?= screenshooter.ruby2.1
 
 # Hinting modes for ttfautohint.  This sets ttfautohint option `-w'.  The
 # modes are also added as a suffix to both the output font name (ttfautohint
@@ -54,6 +83,13 @@ FTDUMP ?= ftdump
 # will not be correctly set.]
 #
 HINTING_MODES ?= G gGD
+
+# The browsers, as set up in the `*.yaml' files, which are also used by
+# browserstack for `*.png' snapshot file names.
+#
+BROWSERS ?= win8.1_ie_11.0 \
+            win8.1_firefox_37.0 \
+            win8.1_chrome_42.0
 
 
 # Add new fonts here.
@@ -72,7 +108,7 @@ $(call FontFamily, NotoNastaliqUrdu, Regular,      Arab, ur)
 $(call FontFamily, NotoSansLao,      Regular Bold, Laoo, lo)
 $(call FontFamily, NotoSerifLao,     Regular Bold, Laoo, lo)
 
-# This macro regenerates `index.html' if necessary.
+# This macro regenerates the top-level `index.html' if necessary.
 #
 $(Index)
 

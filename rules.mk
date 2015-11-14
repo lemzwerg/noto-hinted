@@ -58,19 +58,43 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html \
 #   \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G-yi-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G-yi-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G-yi-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-gGD-he-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-gGD-he-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-gGD-he-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-G-he-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-G-he-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-G-he-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-G-yi-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-G-yi-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-G-yi-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi-win8.1_ie_11.0.png \
+#   \
 #     NotoSansHebrew/index.html \
 #     index.html
+#
 #
 #   NotoSansHebrew/NotoSansHebrew-%-G.ttf: \
 #     NotoSansHebrew-%.ttf \
 #     | NotoSansHebrew; \
 #   \
 #       $(TTFAUTOHINT) $(TTFAUTOHINT_FLAGS) -w G -F "-G" $< $@
-#   NotoSansHebrew/NotoSansHebrew-%-gGD.ttf: \
-#     NotoSansHebrew-%.ttf \
-#     | NotoSansHebrew; \
-#   \
-#       $(TTFAUTOHINT) $(TTFAUTOHINT_FLAGS) -w gGD -F "-gGD" $< $@
+#
+#   ...more rules for similar .ttf files...
+#
 #
 #   NotoSansHebrew/NotoSansHebrew-%-G-he.html: \
 #     waterfall.html.in \
@@ -90,60 +114,30 @@
 #           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
 #           > $@
-#   NotoSansHebrew/NotoSansHebrew-%-G-yi.html: \
-#     waterfall.html.in \
-#     yi-Hebr_$(SAMPLE_TEXT_SUFFIX) \
-#     NotoSansHebrew/NotoSansHebrew-%-G.ttf \
+#
+#   ...more rules for similar .html files...
+#
+#
+#   NotoSansHebrew/NotoSansHebrew-%-G-he-win8.1_firefox_37.0.png: \
+#     NotoSansHebrew/NotoSansHebrew-%-G-he.html \
+#     win8.1_firefox_37.0.yaml \
 #     | NotoSansHebrew; \
 #   \
-#       version=`$(FTDUMP) -n $(word 3,$^) \
-#                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
-#       next="$(filter-out G,$(HINTING_MODES))"; \
-#       sed -e "s|@font-family@|NotoSansHebrew|g" \
-#           -e "s|@font-name@|NotoSansHebrew-$*-G| \
-#           -e "s|@font-version@|$$version|" \
-#           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
-#           -e "s|@html-next@|NotoSansHebrew-$*-$$next-yi.html|" \
-#           -e "s|@lang@|yi|" \
-#           -e "s|@text@|`cat $(word 2,$^)`|" \
-#           < $< \
-#           > $@
-#   NotoSansHebrew/NotoSansHebrew-%-gGD-he.html: \
-#     waterfall.html.in \
-#     he-Hebr_$(SAMPLE_TEXT_SUFFIX) \
-#     NotoSansHebrew/NotoSansHebrew-%-gGD.ttf \
-#     | NotoSansHebrew; \
-#   \
-#       version=`$(FTDUMP) -n $(word 3,$^) \
-#                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
-#       next="$(filter-out gGD,$(HINTING_MODES))"; \
-#       sed -e "s|@font-family@|NotoSansHebrew|g" \
-#           -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
-#           -e "s|@font-version@|$$version|" \
-#           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
-#           -e "s|@html-next@|NotoSansHebrew-$*-$$next-he.html|" \
-#           -e "s|@lang@|he|" \
-#           -e "s|@text@|`cat $(word 2,$^)`|" \
-#           < $< \
-#           > $@
-#   NotoSansHebrew/NotoSansHebrew-%-gGD-yi.html: \
-#     waterfall.html.in \
-#     yi-Hebr_$(SAMPLE_TEXT_SUFFIX) \
-#     NotoSansHebrew/NotoSansHebrew-%-gGD.ttf \
-#     | NotoSansHebrew; \
-#   \
-#       version=`$(FTDUMP) -n $(word 3,$^) \
-#                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
-#       next="$(filter-out gGD,$(HINTING_MODES))"; \
-#       sed -e "s|@font-family@|NotoSansHebrew|g" \
-#           -e "s|@font-name@|NotoSansHebrew-$*-gGD| \
-#           -e "s|@font-version@|$$version|" \
-#           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
-#           -e "s|@html-next@|NotoSansHebrew-$*-$$next-yi.html|" \
-#           -e "s|@lang@|yi|" \
-#           -e "s|@text@|`cat $(word 2,$^)`|" \
-#           < $< \
-#           > $@
+#       screenshot_url=`$(SCREENSHOOTER) shoot \
+#                         --url=$(RAWGIT)/$< \
+#                         --wait \
+#                        win8.1_firefox_37.0.yaml`; \
+#       test $? -eq 0 \
+#         && curl -o $@.$$$$ $$screenshot_url/win8.1_firefox_37.0.png \
+#         && cat $@.$$$$ \
+#         | pngtopnm \
+#         | pnmcrop -top -margin=8 \
+#         | pnmtopng \
+#         > $@; \
+#       rm -f $@.$$$$
+#
+#   ...more rules for similar .png files...
+#
 #
 #   NotoSansHebrew/index.html: \
 #     index-sub.html.in \
@@ -187,19 +181,53 @@
 # The pattern character (`%') in the created rules is used to match the font
 # style (`Regular', `Bold', etc.).
 
-Html = $(eval $(call Html_, $(1), $(2), $(3), $(4)))
 
-define Html_ =
-  h_fam := $$(strip $(1))
-  h_scr := $$(strip $(2))
-  h_hmode := $$(strip $(3))
-  h_lang := $$(strip $(4))
+Snapshots = $(eval $(call Snapshots_, $(1), $(2), $(3), $(4), $(5)))
 
-  $$(h_fam)/$$(h_fam)-%-$$(h_hmode)-$$(h_lang).html: \
+define Snapshots_ =
+  s_fam := $$(strip $(1))
+  s_hmode := $$(strip $(2))
+  s_lang := $$(strip $(3))
+  s_brwsr := $$(strip $(4))
+
+  # After requesting and downloading the snapshot, we create a consistent
+  # top margin of 8px in the image to harmonize the appearance between
+  # different browsers: Firefox snapshots of the waterfall pages start two
+  # pixels lower...
+
+  $$(s_fam)/$$(s_fam)-%-$$(s_hmode)-$$(s_lang)-$$(s_brwsr).png: \
+    $$(s_fam)/$$(s_fam)-%-$$(s_hmode)-$$(s_lang).html \
+    $$(s_brwsr).yaml \
+    | $$(s_fam); \
+\
+      screenshot_url=`$$(SCREENSHOOTER) shoot \
+                        --url=$$(RAWGIT)/$$< \
+                        --wait \
+                        $$(strip $(4)).yaml`; \
+      test $$$$? -eq 0 \
+        && curl -o $$@.$$$$$$$$ $$$$screenshot_url/$$(strip $(4)).png \
+        && cat $$@.$$$$$$$$ \
+        | pngtopnm \
+        | pnmcrop -top -margin=8 \
+        | pnmtopng \
+        > $$@; \
+      rm -f $$@.$$$$$$$$
+endef
+
+
+HtmlSnapshots = $(eval $(call HtmlSnapshots_, $(1), $(2), $(3), $(4)))
+
+define HtmlSnapshots_ =
+  hs_fam := $$(strip $(1))
+  hs_scr := $$(strip $(2))
+  hs_hmode := $$(strip $(3))
+  hs_lang := $$(strip $(4))
+
+  $$(hs_fam)/$$(hs_fam)-%-$$(hs_hmode)-$$(hs_lang).html: \
     waterfall.html.in \
-    $$(h_lang)-$$(h_scr)_$$(SAMPLE_TEXT_SUFFIX) \
-    $$(h_fam)/$$(h_fam)-%-$$(h_hmode).ttf \
-    | $$(h_fam); \
+    $$(hs_lang)-$$(hs_scr)_$$(SAMPLE_TEXT_SUFFIX) \
+    $$(hs_fam)/$$(hs_fam)-%-$$(hs_hmode).ttf \
+    | $$(hs_fam); \
 \
       version=`$$(FTDUMP) -n $$(word 3,$$^) \
                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
@@ -213,12 +241,15 @@ define Html_ =
           -e "s|@text@|`cat $$(word 2,$$^)`|g" \
           < $$< \
           > $$@
+
+  $$(foreach b,$$(BROWSERS), \
+    $$(call Snapshots, $(1), $(3), $(4), $$(b)))
 endef
 
 
-FontHtml = $(eval $(call FontHtml_, $(1), $(2), $(3), $(4)))
+FontHtmlSnapshots = $(eval $(call FontHtmlSnapshots_, $(1), $(2), $(3), $(4)))
 
-define FontHtml_ =
+define FontHtmlSnapshots_ =
   fh_fam := $$(strip $(1))
   fh_scr := $$(strip $(2))
   fh_lang := $$(strip $(3))
@@ -232,7 +263,7 @@ define FontHtml_ =
         -w $$(strip $(4)) -F "-$$(strip $(4))" $$< $$@
 
   $$(foreach l,$$(fh_lang), \
-    $$(call Html, $(1), $(2), $(4), $$(l)))
+    $$(call HtmlSnapshots, $(1), $(2), $(4), $$(l)))
 endef
 
 
@@ -251,8 +282,13 @@ define FontFamily_ =
     $$(foreach s,$$(ff_sty), \
       $$(foreach hm,$$(HINTING_MODES), \
         $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm).ttf \
+\
         $$(foreach l,$$(ff_lang), \
-          $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html))) \
+          $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html \
+\
+          $$(foreach b,$$(BROWSERS), \
+            $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l)-$$(b).png)))) \
+\
     $$(ff_fam)/index.html \
     index.html
 
@@ -274,7 +310,7 @@ define FontFamily_ =
   INDEX_ENTRIES += $$(ff_fam)/index.html
 
   $$(foreach hm,$$(HINTING_MODES), \
-    $$(call FontHtml, $(1), $(3), $(4), $$(hm)))
+    $$(call FontHtmlSnapshots, $(1), $(3), $(4), $$(hm)))
 
   $$(ff_fam): ; \
     -mkdir $$@
