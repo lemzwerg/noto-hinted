@@ -28,10 +28,11 @@ include rules.mk
 # The following programs are expected to be in $PATH.
 #
 #   cat
+#   convert (from the ImageMagick package)
 #   curl
 #   date
 #   mkdir
-#   pngtopnm, pnmtopng, pnmcrop (from the netpbm package)
+#   pamcut, pamcomp, pngtopnm, pnmtopng, pnmcrop (from the netpbm package)
 #   rm
 #   sed
 
@@ -58,6 +59,10 @@ TTFAUTOHINT ?= ../ttfautohint/frontend/ttfautohint
 # ttfautohint flags (except `-F' and `-w', which we add separately).
 #
 TTFAUTOHINT_FLAGS ?= -t
+
+# A font for labeling PNG images with ImageMagick's `convert' program.
+#
+LABEL_FONT ?= Times-Roman
 
 # The ftdump binary, a FreeType demo program.  We use it to extract a font's
 # version string from its `name' table.

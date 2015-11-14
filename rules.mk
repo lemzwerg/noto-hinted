@@ -195,10 +195,8 @@ define Snapshots_ =
   s_lang := $$(strip $(3))
   s_brwsr := $$(strip $(4))
 
-  # After requesting and downloading the snapshot, we create a consistent
-  # top margin of 8px in the image to harmonize the appearance between
-  # different browsers: Firefox snapshots of the waterfall pages start two
-  # pixels lower...
+  # After requesting and downloading the snapshot, we replace the link
+  # section at the top of the image with the file name.
 
   $$(s_fam)/$$(s_fam)-%-$$(s_hmode)-$$(s_lang)-$$(s_brwsr).png: \
     $$(s_fam)/$$(s_fam)-%-$$(s_hmode)-$$(s_lang).html \
@@ -210,13 +208,18 @@ define Snapshots_ =
                         --wait \
                         $$(strip $(4)).yaml`; \
       test $$$$? -eq 0 \
-        && curl -o $$@.$$$$$$$$ $$$$screenshot_url/$$(strip $(4)).png \
-        && cat $$@.$$$$$$$$ \
+        && curl -o $$@-img.$$$$$$$$ $$$$screenshot_url/$$(strip $(4)).png \
+        && convert -font $$(LABEL_FONT) -pointsize 20 label:$$(notdir $$@) pnm:- \
+        | pnmcrop -margin=8 \
+        > $$@-text.$$$$$$$$ \
+        && cat $$@-img.$$$$$$$$ \
         | pngtopnm \
-        | pnmcrop -top -margin=8 \
+        | pamcut -top=70 \
+        | pnmcrop -top -margin=40 \
+        | pamcomp -align=left -valign=top $$@-text.$$$$$$$$ \
         | pnmtopng \
         > $$@; \
-      rm -f $$@.$$$$$$$$
+      rm -f $$@-text.$$$$$$$$ $$@-img.$$$$$$$$
 endef
 
 
