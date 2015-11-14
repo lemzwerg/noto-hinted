@@ -27,9 +27,9 @@
         content="text/css">
 
   <meta name="description"
-        content="Noto fonts hinted with ttfautohint">
+        content="@top@ fonts hinted with ttfautohint">
   <meta name="keywords"
-        content="FreeType ttfautohint noto fonts">
+        content="FreeType ttfautohint @top@ fonts">
   <meta name="author"
         content="Werner Lemberg">
 
@@ -39,11 +39,11 @@
       font-size: 70%; }
   </style>
 
-  <title>Noto fonts hinted with ttfautohint</title>
+  <title>@top@ fonts hinted with ttfautohint</title>
 </head>
 
 <body>
-  <h1>Noto fonts hinted with ttfautohint</h1>
+  <h1>@top@ fonts hinted with ttfautohint</h1>
 
   <p>The <a href="https://github.com/lemzwerg/noto-hinted">noto-hinted</a>
     repository contains various hinted versions for a bunch of Google's <a

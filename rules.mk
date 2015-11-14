@@ -106,7 +106,7 @@
 #                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
 #       next="$(filter-out G,$(HINTING_MODES))"; \
 #       pngstem="$(notdir $(basename $@))" \
-#       linkline="<a href=\"../index.html\">Noto</a>\&nbsp;\&rsaquo;\\$(Newline) \
+#       linkline="<a href=\"../index.html\">$(TOP)</a>\&nbsp;\&rsaquo;\\$(Newline) \
 #                 <a href=\"index.html\">NotoSansHebrew</a>\&nbsp;\&rsaquo;\\$(Newline) \
 #                 NotoSansHebrew-$*-G (he)" \
 #       links="$$linkline\&nbsp;\&rsaquo;\\$(Newline) \
@@ -119,7 +119,8 @@
 #                <span class=\"hidden\">\\$(Newline) \
 #                  $$linkline</span>\&nbsp;\&rsaquo;\\$(Newline) \
 #                <a href=\"$$pngstem-win8.1_chrome_42.0.png\">win8.1_chrome_42.0</a>\\$(Newline)"; \
-#       sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
+#       sed -e "s|@top@|$(TOP)|g" \
+#           -e "s|@font-name@|NotoSansHebrew-$*-G| \
 #           -e "s|@font-version@|$$version|" \
 #           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
 #           -e "s|@html-next@|NotoSansHebrew-$*-$$next-he.html|" \
@@ -170,7 +171,8 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html \
 #     | NotoSansHebrew; \
 #   \
-#       sed -e "s|@font-family@|NotoSansHebrew|" \
+#       sed -e "s|@top@|$(TOP)|g" \
+#           -e "s|@font-family@|NotoSansHebrew|g" \
 #           -e "s|@font-list@|$(foreach f,$(wordlist 2,$(words $^),$^), \
 #               <li><a href=\"$(notdir $(f))\">$(notdir $(basename $(f)))</a></li>\\$(Newline))|" \
 #           -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
@@ -260,7 +262,7 @@ define HtmlSnapshots_ =
                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
       next="$$(filter-out $$(strip $(3)),$$(HINTING_MODES))" \
       pngstem="$$(notdir $$(basename $$@))" \
-      linkline="<a href=\"../index.html\">Noto</a>\&nbsp;\&rsaquo;\\$$(Newline) \
+      linkline="<a href=\"../index.html\">$$(TOP)</a>\&nbsp;\&rsaquo;\\$$(Newline) \
                 <a href=\"index.html\">$$(strip $(1))</a>\&nbsp;\&rsaquo;\\$$(Newline) \
                 $$(strip $(1))-$$*-$$(strip $(3)) ($$(strip $(4)))" \
       links="$$$$linkline\&nbsp;\&rsaquo;\\$$(Newline) \
@@ -270,7 +272,8 @@ define HtmlSnapshots_ =
                <span class=\"hidden\">\\$$(Newline) \
                  $$$$linkline</span>\&nbsp;\&rsaquo;\\$$(Newline) \
                <a href=\"$$$$pngstem-$$(b).png\">$$(b)</a>\\$$(Newline))"; \
-      sed -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
+      sed -e "s|@top@|$$(TOP)|g" \
+          -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
           -e "s|@font-version@|$$$$version|" \
           -e "s|@font-next@|$$(strip $(1))-$$*-$$$$next|" \
           -e "s|@html-next@|$$(strip $(1))-$$*-$$$$next-$$(strip $(4)).html|" \
@@ -345,7 +348,8 @@ define FontFamily_ =
           $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html))) \
     | $$(ff_fam); \
 \
-      sed -e "s|@font-family@|$$(strip $(1))|" \
+      sed -e "s|@top@|$$(TOP)|g" \
+          -e "s|@font-family@|$$(strip $(1))|g" \
           -e "s|@font-list@|$$(foreach f,$$(wordlist 2,$$(words $$^),$$^), \
               <li><a href=\"$$(notdir $$(f))\">$$(notdir $$(basename $$(f)))</a></li>\\$$(Newline))|" \
           -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
@@ -369,7 +373,8 @@ define GenerateTargets_ =
     index.html.in \
     $$(INDEX_ENTRIES); \
 \
-      sed -e "s|@font-list@|$$(foreach f,$$(INDEX_ENTRIES), \
+      sed -e "s|@top@|$$(TOP)|" \
+          -e "s|@font-list@|$$(foreach f,$$(INDEX_ENTRIES), \
               <li><a href=\"$$(f)\">$$(subst /index.html,,$$(f))</a></li>\\$$(Newline))|" \
           -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
           < $$< \
@@ -388,7 +393,7 @@ define GenerateTargets_ =
 endef
 
 
-VPATH += $(NOTO_DIR) \
+VPATH += $(UNHINTED_FONT_DIR) \
          $(SAMPLE_TEXT_DIR)
 
 

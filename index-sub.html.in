@@ -27,9 +27,9 @@
         content="text/css">
 
   <meta name="description"
-        content="Noto fonts hinted with ttfautohint">
+        content="@top@ fonts hinted with ttfautohint">
   <meta name="keywords"
-        content="FreeType ttfautohint noto fonts">
+        content="FreeType ttfautohint @top@ fonts">
   <meta name="author"
         content="Werner Lemberg">
 
@@ -44,7 +44,7 @@
 
 <body>
   <p>
-    <a href="../index.html">Noto</a>&nbsp;&rsaquo;
+    <a href="../index.html">@top@</a>&nbsp;&rsaquo;
     @font-family@
   </p>
 

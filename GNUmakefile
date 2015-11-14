@@ -37,9 +37,14 @@ include rules.mk
 #   sed
 
 
-# The directory where the unhinted Noto fonts reside.
+# The name assigned in links to the repository's top-level `index.html'
+# file.
 #
-NOTO_DIR ?= ../noto-fonts/unhinted
+TOP ?= Noto
+
+# The directory where the unhinted fonts reside.
+#
+UNHINTED_FONT_DIR ?= ../noto-fonts/unhinted
 
 # The directory where the sample texts are stored.  The name of the files
 # must be of the form `<lang>-<script>_$(SAMPLE_TEXT_SUFFIX)', where <lang>
@@ -69,9 +74,10 @@ LABEL_FONT ?= Times-Roman
 #
 FTDUMP ?= ftdump
 
-# The URL prefix to access HTML pages for the `noto-hinted' repository.
-# Note that directly accessing github.com doesn't work since HTML pages
-# (intentionally) get a `Content-Type' of `text/plain'.
+# The URL prefix to access HTML pages for the repository we are going to
+# fill with created files.  Note that directly accessing `github.com'
+# doesn't work since HTML pages (intentionally) get a `Content-Type' of
+# `text/plain'.
 #
 RAWGIT ?= https://rawgit.com/lemzwerg/noto-hinted/master
 
