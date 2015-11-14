@@ -4,12 +4,16 @@
 
 This repository contains
 
-  * hinted versions of (some) Noto fonts using
-    [ttfautohint](http://www.freetype.org/ttfautohint),
+  * hinted versions of (some) Noto fonts generated with
+    [ttfautohint](http://freetype.org/ttfautohint),
 
-  * HTML test pages that embed the created fonts, and
+  * HTML test pages that embed the created fonts,
 
-  * a Makefile used to create the fonts and HTML test pages.
+  * snapshot images of all HTML test pages, as rendered by Firefox, Chrome,
+    and IE on MS Windows, and
+
+  * a Makefile and some auxiliary files to (re)create the fonts, HTML
+    test pages, and the snapshots.
 
 Go to
 
@@ -20,3 +24,7 @@ or
   http://htmlpreview.github.io/?https://github.com/lemzwerg/noto-hinted/blob/master/index.html
 
 to view the top-level index file of the HTML test pages.
+
+The snapshots are created automatically by
+[BrowserStack](http://browserstack.com), kindly providing an account to
+access its screenshot API.
