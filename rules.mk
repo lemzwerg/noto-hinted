@@ -43,12 +43,13 @@
 #
 # gives
 #
-#   all: \
+#   TTF_FILES += \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G.ttf \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD.ttf \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G.ttf \
-#     NotoSansHebrew/NotoSansHebrew-Bold-gGD.ttf \
-#   \
+#     NotoSansHebrew/NotoSansHebrew-Bold-gGD.ttf
+#
+#   HTML_FILES += \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-he.html \
@@ -57,7 +58,10 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi.html \
-#   \
+#     \
+#     NotoSansHebrew/index.html
+#
+#   PNG_FILES += \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_firefox_37.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_chrome_42.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_ie_11.0.png \
@@ -82,10 +86,6 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi-win8.1_firefox_37.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi-win8.1_chrome_42.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi-win8.1_ie_11.0.png \
-#   \
-#     NotoSansHebrew/index.html \
-#     index.html
-#
 #
 #   NotoSansHebrew/NotoSansHebrew-%-G.ttf: \
 #     NotoSansHebrew-%.ttf \
@@ -105,11 +105,25 @@
 #       version=`$(FTDUMP) -n $(word 3,$^) \
 #                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
 #       next="$(filter-out G,$(HINTING_MODES))"; \
-#       sed -e "s|@font-family@|NotoSansHebrew|g" \
-#           -e "s|@font-name@|NotoSansHebrew-$*-G| \
+#       pngstem="$(notdir $(basename $@))" \
+#       linkline="<a href=\"../index.html\">Noto</a>\&nbsp;\&rsaquo;\\$(Newline) \
+#                 <a href=\"index.html\">NotoSansHebrew</a>\&nbsp;\&rsaquo;\\$(Newline) \
+#                 NotoSansHebrew-$*-G (he)" \
+#       links="$$linkline\&nbsp;\&rsaquo;\\$(Newline) \
+#               <a href=\"$$pngstem-win8.1_ie_11.0.png\">win8.1_ie_11.0</a> \
+#                <br>\\$(Newline) \
+#                <span class=\"hidden\">\\$(Newline) \
+#                  $$linkline</span>\&nbsp;\&rsaquo;\\$(Newline) \
+#                <a href=\"$$pngstem-win8.1_firefox_37.0.png\">win8.1_firefox_37.0</a>\\$(Newline) \
+#                <br>\\$(Newline) \
+#                <span class=\"hidden\">\\$(Newline) \
+#                  $$linkline</span>\&nbsp;\&rsaquo;\\$(Newline) \
+#                <a href=\"$$pngstem-win8.1_chrome_42.0.png\">win8.1_chrome_42.0</a>\\$(Newline)"; \
+#       sed -e "s|@font-name@|NotoSansHebrew-$*-G| \
 #           -e "s|@font-version@|$$version|" \
 #           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
 #           -e "s|@html-next@|NotoSansHebrew-$*-$$next-he.html|" \
+#           -e "s|@links@|$$links|" \
 #           -e "s|@lang@|he|" \
 #           -e "s|@text@|`cat $(word 2,$^)`|" \
 #           < $< \
@@ -128,13 +142,18 @@
 #                         --wait \
 #                        win8.1_firefox_37.0.yaml`; \
 #       test $? -eq 0 \
-#         && curl -o $@.$$$$ $$screenshot_url/win8.1_firefox_37.0.png \
-#         && cat $@.$$$$ \
+#         && curl -o $@-img.$$$$ $$screenshot_url/win8.1_firefox_37.0.png \
+#         && convert -font $(LABEL_FONT) -pointsize 20 label:$(notdir $@) pnm:- \
+#         | pnmcrop -margin=8 \
+#         > $@-text.$$$$ \
+#         && cat $@-img.$$$$ \
 #         | pngtopnm \
-#         | pnmcrop -top -margin=8 \
+#         | pamcut -top=70 \
+#         | pnmcrop -top -margin=40 \
+#         | pamcomp -align=left -valign=top $@-text.$$$$ \
 #         | pnmtopng \
 #         > $@; \
-#       rm -f $@.$$$$
+#       rm -f $@-text.$$$$ $@-img.$$$$
 #
 #   ...more rules for similar .png files...
 #
