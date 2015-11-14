@@ -14,6 +14,14 @@
 # under the License.
 
 
+# Possible targets:
+#
+#   ttf    generate TrueType files with ttfautohint
+#   html   generate HTML pages (this also needs generated TTF files)
+#   png    generate PNG images from HTML pages via browserstack
+#
+#   all    make `ttf', `html', and `png' targets
+
 include rules.mk
 
 
@@ -108,8 +116,9 @@ $(call FontFamily, NotoNastaliqUrdu, Regular,      Arab, ur)
 $(call FontFamily, NotoSansLao,      Regular Bold, Laoo, lo)
 $(call FontFamily, NotoSerifLao,     Regular Bold, Laoo, lo)
 
-# This macro regenerates the top-level `index.html' if necessary.
+
+# This macro generates the top-level targets.
 #
-$(Index)
+$(GenerateTargets)
 
 # eof

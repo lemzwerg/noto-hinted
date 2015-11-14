@@ -267,8 +267,11 @@ define FontHtmlSnapshots_ =
 endef
 
 
-# Note the double-colon rule to have one recipe per `FontFamily' call for
-# target `all'.
+AddFile = $(eval $(call AddFile_, $(1), $(2)))
+
+define AddFile_
+  $(1) += $(2)
+endef
 
 FontFamily = $(eval $(call FontFamily_, $(1), $(2), $(3), $(4)))
 
@@ -278,19 +281,23 @@ define FontFamily_ =
   ff_scr := $$(strip $(3))
   ff_lang := $$(strip $(4))
 
-  all:: \
-    $$(foreach s,$$(ff_sty), \
-      $$(foreach hm,$$(HINTING_MODES), \
-        $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm).ttf \
+  $$(foreach s,$$(ff_sty), \
+    $$(foreach hm,$$(HINTING_MODES), \
+      $$(call AddFile, \
+              TTF_FILES, \
+              $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm).ttf) \
 \
-        $$(foreach l,$$(ff_lang), \
-          $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html \
+      $$(foreach l,$$(ff_lang), \
+        $$(call AddFile, \
+                HTML_FILES, \
+                $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html) \
 \
-          $$(foreach b,$$(BROWSERS), \
-            $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l)-$$(b).png)))) \
-\
-    $$(ff_fam)/index.html \
-    index.html
+        $$(foreach b,$$(BROWSERS), \
+          $$(call AddFile, \
+                  PNG_FILES, \
+                  $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l)-$$(b).png)))))
+
+  HTML_FILES += $$(ff_fam)/index.html
 
   $$(ff_fam)/index.html: \
     index-sub.html.in \
@@ -323,9 +330,9 @@ define Newline
 endef
 
 
-Index = $(eval $(Index_))
+GenerateTargets = $(eval $(GenerateTargets_))
 
-define Index_ =
+define GenerateTargets_ =
   index.html: \
     index.html.in \
     $$(INDEX_ENTRIES); \
@@ -335,17 +342,29 @@ define Index_ =
           -e "s|@date@|`LANG= date \"+%Y-%b-%d\"`|" \
           < $$< \
           > $$@
+
+  HTML_FILES += index.html
+
+  html: $$(HTML_FILES)
+  ttf: $$(TTF_FILES)
+  png: $$(PNG_FILES)
+
+  all: html ttf png
+
+  .PHONY: all html ttf png
+  .DEFAULT_GOAL := all
 endef
 
-
-.PHONY: all
-.DEFAULT_GOAL := all
 
 VPATH += $(NOTO_DIR) \
          $(SAMPLE_TEXT_DIR)
 
-# We have to initialize INDEX_ENTRIES as being simply expanded so that the
+
+# We have to initialize some variables as being simply expanded so that the
 # `+=' operator in `FontFamily' works correctly.
 INDEX_ENTRIES :=
+TTF_FILES :=
+HTML_FILES :=
+PNG_FILES :=
 
 # eof
