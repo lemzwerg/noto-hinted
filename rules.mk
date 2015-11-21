@@ -260,7 +260,8 @@ define HtmlSnapshots_ =
 \
       version=`$$(FTDUMP) -n $$(word 3,$$^) \
                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
-      next="$$(filter-out $$(strip $(3)),$$(HINTING_MODES))" \
+      next=`echo $$(HINTING_MODES) $$(HINTING_MODES) \
+            | sed "s/.*$$(strip $(3)) \([^ ][^ ]*\).*/\1/"` \
       pngstem="$$(notdir $$(basename $$@))" \
       linkline="<a href=\"../index.html\">$$(TOP)</a>\&nbsp;\&rsaquo;\\$$(Newline) \
                 <a href=\"index.html\">$$(strip $(1))</a>\&nbsp;\&rsaquo;\\$$(Newline) \
