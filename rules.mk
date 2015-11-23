@@ -103,12 +103,15 @@
 #     | NotoSansHebrew; \
 #   \
 #       version=`$(FTDUMP) -n $(word 3,$^) \
-#                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
+#                | sed -n '/version string/ { n; s/ *" *//g; p; q }'` \
 #       next="$(filter-out G,$(HINTING_MODES))"; \
 #       pngstem="$(notdir $(basename $@))" \
+#       title="NotoSansHebrew-Regular, \
+#              G hinting \
+#              (language he)" \
 #       linkline="<a href=\"../index.html\">$(TOP)</a>\&nbsp;\&rsaquo;\\$(Newline) \
 #                 <a href=\"index.html\">NotoSansHebrew</a>\&nbsp;\&rsaquo;\\$(Newline) \
-#                 NotoSansHebrew-$*-G (he)" \
+#                 $$title" \
 #       links="$$linkline\&nbsp;\&rsaquo;\\$(Newline) \
 #               <a href=\"$$pngstem-win8.1_ie_11.0.png\">win8.1_ie_11.0</a> \
 #                <br>\\$(Newline) \
@@ -120,6 +123,7 @@
 #                  $$linkline</span>\&nbsp;\&rsaquo;\\$(Newline) \
 #                <a href=\"$$pngstem-win8.1_chrome_42.0.png\">win8.1_chrome_42.0</a>\\$(Newline)"; \
 #       sed -e "s|@top@|$(TOP)|g" \
+#           -e "s|@title@|$$title|" \
 #           -e "s|@font-name@|NotoSansHebrew-$*-G| \
 #           -e "s|@font-version@|$$version|" \
 #           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
@@ -258,13 +262,16 @@ define HtmlSnapshots_ =
     | $$(hs_fam); \
 \
       version=`$$(FTDUMP) -n $$(word 3,$$^) \
-               | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
+               | sed -n '/version string/ { n; s/ *" *//g; p; q }'` \
       next=`echo $$(HINTING_MODES) $$(HINTING_MODES) \
             | sed "s/.*$$(strip $(5)) \([^ ][^ ]*\).*/\1/"` \
       pngstem="$$(notdir $$(basename $$@))" \
+      title="$$(strip $(1))-$$(strip $(2)), \
+             $$(strip $(5)) hinting \
+             (language $$(strip $(4)))" \
       linkline="<a href=\"../index.html\">$$(TOP)</a>\&nbsp;\&rsaquo;\\$$(Newline) \
                 <a href=\"index.html\">$$(strip $(1))</a>\&nbsp;\&rsaquo;\\$$(Newline) \
-                $$(strip $(1))-$$(strip $(2))-$$(strip $(5)) ($$(strip $(4)))" \
+                $$$$title" \
       links="$$$$linkline\&nbsp;\&rsaquo;\\$$(Newline) \
               <a href=\"$$$$pngstem-$$(firstword $$(BROWSERS)).png\">$$(firstword $$(BROWSERS))</a> \
              $$(foreach b,$$(wordlist 2,$$(words $$(BROWSERS)),$$(BROWSERS)), \
@@ -273,6 +280,7 @@ define HtmlSnapshots_ =
                  $$$$linkline</span>\&nbsp;\&rsaquo;\\$$(Newline) \
                <a href=\"$$$$pngstem-$$(b).png\">$$(b)</a>\\$$(Newline))"; \
       sed -e "s|@top@|$$(TOP)|g" \
+          -e "s|@title@|$$$$title|" \
           -e "s|@font-name@|$$(strip $(1))-$$(strip $(2))-$$(strip $(5))|g" \
           -e "s|@font-version@|$$$$version|" \
           -e "s|@font-next@|$$(strip $(1))-$$(strip $(2))-$$$$next|" \

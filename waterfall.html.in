@@ -57,7 +57,7 @@
       white-space: nowrap; }
   </style>
 
-  <title>@font-name@</title>
+  <title>@title@</title>
 </head>
 
 <body>
