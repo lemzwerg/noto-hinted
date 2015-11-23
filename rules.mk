@@ -87,8 +87,8 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi-win8.1_chrome_42.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-yi-win8.1_ie_11.0.png \
 #
-#   NotoSansHebrew/NotoSansHebrew-%-G.ttf: \
-#     NotoSansHebrew-%.ttf \
+#   NotoSansHebrew/NotoSansHebrew-Regular-G.ttf: \
+#     NotoSansHebrew-Regular.ttf \
 #     | NotoSansHebrew; \
 #   \
 #       $(TTFAUTOHINT) $(TTFAUTOHINT_FLAGS) -w G -F "-G" $< $@
@@ -96,10 +96,10 @@
 #   ...more rules for similar .ttf files...
 #
 #
-#   NotoSansHebrew/NotoSansHebrew-%-G-he.html: \
+#   NotoSansHebrew/NotoSansHebrew-Regular-G-he.html: \
 #     waterfall.html.in \
 #     he-Hebr_$(SAMPLE_TEXT_SUFFIX) \
-#     NotoSansHebrew/NotoSansHebrew-%-G.ttf \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G.ttf \
 #     | NotoSansHebrew; \
 #   \
 #       version=`$(FTDUMP) -n $(word 3,$^) \
@@ -133,8 +133,8 @@
 #   ...more rules for similar .html files...
 #
 #
-#   NotoSansHebrew/NotoSansHebrew-%-G-he-win8.1_firefox_37.0.png: \
-#     NotoSansHebrew/NotoSansHebrew-%-G-he.html \
+#   NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_firefox_37.0.png: \
+#     NotoSansHebrew/NotoSansHebrew-Regular-G-he.html \
 #     win8.1_firefox_37.0.yaml \
 #     | NotoSansHebrew; \
 #   \
@@ -198,9 +198,6 @@
 # To be able to create make targets at all, we have to use the `eval'
 # function; this further implies to use `$$' instead `$' (except for macro
 # arguments) in the called macros to avoid premature expansion.
-#
-# The pattern character (`%') in the created rules is used to match the font
-# style (`Regular', `Bold', etc.).
 
 define Newline
 
@@ -212,24 +209,25 @@ Snapshots = $(eval $(call Snapshots_, $(1), $(2), $(3), $(4), $(5)))
 
 define Snapshots_ =
   s_fam := $$(strip $(1))
-  s_hmode := $$(strip $(2))
+  s_sty := $$(strip $(2))
   s_lang := $$(strip $(3))
-  s_brwsr := $$(strip $(4))
+  s_hmode := $$(strip $(4))
+  s_brwsr := $$(strip $(5))
 
   # After requesting and downloading the snapshot, we replace the link
   # section at the top of the image with the file name.
 
-  $$(s_fam)/$$(s_fam)-%-$$(s_hmode)-$$(s_lang)-$$(s_brwsr).png: \
-    $$(s_fam)/$$(s_fam)-%-$$(s_hmode)-$$(s_lang).html \
+  $$(s_fam)/$$(s_fam)-$$(s_sty)-$$(s_hmode)-$$(s_lang)-$$(s_brwsr).png: \
+    $$(s_fam)/$$(s_fam)-$$(s_sty)-$$(s_hmode)-$$(s_lang).html \
     $$(s_brwsr).yaml \
     | $$(s_fam); \
 \
       screenshot_url=`$$(SCREENSHOOTER) shoot \
                         --url=$$(RAWGIT)/$$< \
                         --wait \
-                        $$(strip $(4)).yaml`; \
+                        $$(strip $(5)).yaml`; \
       test $$$$? -eq 0 \
-        && curl -o $$@-img.$$$$$$$$ $$$$screenshot_url/$$(strip $(4)).png \
+        && curl -o $$@-img.$$$$$$$$ $$$$screenshot_url/$$(strip $(5)).png \
         && convert -font $$(LABEL_FONT) -pointsize 20 label:$$(notdir $$@) pnm:- \
         | pnmcrop -margin=8 \
         > $$@-text.$$$$$$$$ \
@@ -244,28 +242,29 @@ define Snapshots_ =
 endef
 
 
-HtmlSnapshots = $(eval $(call HtmlSnapshots_, $(1), $(2), $(3), $(4)))
+HtmlSnapshots = $(eval $(call HtmlSnapshots_, $(1), $(2), $(3), $(4), $(5)))
 
 define HtmlSnapshots_ =
   hs_fam := $$(strip $(1))
-  hs_scr := $$(strip $(2))
-  hs_hmode := $$(strip $(3))
+  hs_sty := $$(strip $(2))
+  hs_scr := $$(strip $(3))
   hs_lang := $$(strip $(4))
+  hs_hmode := $$(strip $(5))
 
-  $$(hs_fam)/$$(hs_fam)-%-$$(hs_hmode)-$$(hs_lang).html: \
+  $$(hs_fam)/$$(hs_fam)-$$(hs_sty)-$$(hs_hmode)-$$(hs_lang).html: \
     waterfall.html.in \
     $$(hs_lang)-$$(hs_scr)_$$(SAMPLE_TEXT_SUFFIX) \
-    $$(hs_fam)/$$(hs_fam)-%-$$(hs_hmode).ttf \
+    $$(hs_fam)/$$(hs_fam)-$$(hs_sty)-$$(hs_hmode).ttf \
     | $$(hs_fam); \
 \
       version=`$$(FTDUMP) -n $$(word 3,$$^) \
                | sed -n '/; ttfautohint/ { s/ *"//g; p }'` \
       next=`echo $$(HINTING_MODES) $$(HINTING_MODES) \
-            | sed "s/.*$$(strip $(3)) \([^ ][^ ]*\).*/\1/"` \
+            | sed "s/.*$$(strip $(5)) \([^ ][^ ]*\).*/\1/"` \
       pngstem="$$(notdir $$(basename $$@))" \
       linkline="<a href=\"../index.html\">$$(TOP)</a>\&nbsp;\&rsaquo;\\$$(Newline) \
                 <a href=\"index.html\">$$(strip $(1))</a>\&nbsp;\&rsaquo;\\$$(Newline) \
-                $$(strip $(1))-$$*-$$(strip $(3)) ($$(strip $(4)))" \
+                $$(strip $(1))-$$(strip $(2))-$$(strip $(5)) ($$(strip $(4)))" \
       links="$$$$linkline\&nbsp;\&rsaquo;\\$$(Newline) \
               <a href=\"$$$$pngstem-$$(firstword $$(BROWSERS)).png\">$$(firstword $$(BROWSERS))</a> \
              $$(foreach b,$$(wordlist 2,$$(words $$(BROWSERS)),$$(BROWSERS)), \
@@ -274,10 +273,10 @@ define HtmlSnapshots_ =
                  $$$$linkline</span>\&nbsp;\&rsaquo;\\$$(Newline) \
                <a href=\"$$$$pngstem-$$(b).png\">$$(b)</a>\\$$(Newline))"; \
       sed -e "s|@top@|$$(TOP)|g" \
-          -e "s|@font-name@|$$(strip $(1))-$$*-$$(strip $(3))|g" \
+          -e "s|@font-name@|$$(strip $(1))-$$(strip $(2))-$$(strip $(5))|g" \
           -e "s|@font-version@|$$$$version|" \
-          -e "s|@font-next@|$$(strip $(1))-$$*-$$$$next|" \
-          -e "s|@html-next@|$$(strip $(1))-$$*-$$$$next-$$(strip $(4)).html|" \
+          -e "s|@font-next@|$$(strip $(1))-$$(strip $(2))-$$$$next|" \
+          -e "s|@html-next@|$$(strip $(1))-$$(strip $(2))-$$$$next-$$(strip $(4)).html|" \
           -e "s|@links@|$$$$links|" \
           -e "s|@lang@|$$(strip $(4))|g" \
           -e "s|@text@|`cat $$(word 2,$$^)`|g" \
@@ -285,27 +284,28 @@ define HtmlSnapshots_ =
           > $$@
 
   $$(foreach b,$$(BROWSERS), \
-    $$(call Snapshots, $(1), $(3), $(4), $$(b)))
+    $$(call Snapshots, $(1), $(2), $(4), $(5), $$(b)))
 endef
 
 
-FontHtmlSnapshots = $(eval $(call FontHtmlSnapshots_, $(1), $(2), $(3), $(4)))
+FontHtmlSnapshots = $(eval $(call FontHtmlSnapshots_, $(1), $(2), $(3), $(4), $(5)))
 
 define FontHtmlSnapshots_ =
   fh_fam := $$(strip $(1))
-  fh_scr := $$(strip $(2))
-  fh_lang := $$(strip $(3))
-  fh_hmode := $$(strip $(4))
+  fh_sty := $$(strip $(2))
+  fh_scr := $$(strip $(3))
+  fh_lang := $$(strip $(4))
+  fh_hmode := $$(strip $(5))
 
-  $$(fh_fam)/$$(fh_fam)-%-$$(fh_hmode).ttf: \
-    $$(fh_fam)-%.ttf \
+  $$(fh_fam)/$$(fh_fam)-$$(fh_sty)-$$(fh_hmode).ttf: \
+    $$(fh_fam)-$$(fh_sty).ttf \
     | $$(fh_fam); \
 \
       $$(TTFAUTOHINT) $$(TTFAUTOHINT_FLAGS) \
-        -w $$(strip $(4)) -F "-$$(strip $(4))" $$< $$@
+        -w $$(strip $(5)) -F "-$$(strip $(5))" $$< $$@
 
   $$(foreach l,$$(fh_lang), \
-    $$(call HtmlSnapshots, $(1), $(2), $(4), $$(l)))
+    $$(call HtmlSnapshots, $(1), $(2), $(3), $$(l), $(5)))
 endef
 
 
@@ -359,8 +359,9 @@ define FontFamily_ =
 
   INDEX_ENTRIES += $$(ff_fam)/index.html
 
-  $$(foreach hm,$$(HINTING_MODES), \
-    $$(call FontHtmlSnapshots, $(1), $(3), $(4), $$(hm)))
+  $$(foreach s,$$(ff_sty), \
+    $$(foreach hm,$$(HINTING_MODES), \
+      $$(call FontHtmlSnapshots, $(1), $$(s), $(3), $(4), $$(hm))))
 
   $$(ff_fam): ; \
     -mkdir $$@
