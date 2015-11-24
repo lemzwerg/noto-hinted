@@ -36,7 +36,7 @@
   <style type="text/css">
     @font-face {
       font-family: "@font-name@";
-      src: url("@font-name@.ttf");
+      src: url("@font-url@");
       text-rendering: optimizeLegibility; }	
 
     div.main {

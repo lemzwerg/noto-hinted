@@ -46,6 +46,19 @@ TOP ?= Noto
 #
 UNHINTED_FONT_DIR ?= ../noto-fonts/unhinted
 
+# A URL to access the unhinted fonts.
+#
+UNHINTED_FONT_URL ?= https://rawgit.com/googlei18n/noto-fonts/master/unhinted
+
+# The directory where the manually hinted fonts reside.  If there is no
+# manually hinted version of a font, it gets ignored.
+#
+HINTED_FONT_DIR ?= ../noto-fonts/hinted
+
+# A URL to access the manually hinted fonts.
+#
+HINTED_FONT_URL ?= https://rawgit.com/googlei18n/noto-fonts/master/hinted
+
 # The directory where the sample texts are stored.  The name of the files
 # must be of the form `<lang>-<script>_$(SAMPLE_TEXT_SUFFIX)', where <lang>
 # is a two-letter or three-letter tag (given as the fourth argument to the
@@ -97,7 +110,15 @@ SCREENSHOOTER ?= screenshooter.ruby2.1
 # `G' means strong hinting for GDI ClearType only, `gGD' indicates strong
 # hinting for all hinting modes (grayscale, GDI, and DWrite ClearType).
 #
-HINTING_MODES ?= G gGD
+# Two values are special: `manual' and `unhinted'.  They are not options for
+# ttfautohint; instead, they refer to already existing fonts located in the
+# directories given by `HINTED_FONT_DIR' and `UNHINTED_FONT_DIR',
+# respectively.
+#
+# This Makefile generates separate HTML test pages for each value in
+# `HINTING_MODES'.
+#
+HINTING_MODES ?= unhinted manual G gGD
 
 # The browsers, as set up in the `*.yaml' files, which are also used by
 # browserstack for `*.png' snapshot file names.

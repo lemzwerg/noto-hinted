@@ -29,11 +29,21 @@
 # The following variables must be set; see the top-level `Makefile' for
 # explanations.
 #
+#   BROWSERS
 #   FTDUMP
+#   HINTED_FONT_DIR
+#   HINTED_FONT_URL
 #   HINTING_MODES
+#   LABEL_FONT
+#   RAWGIT
+#   SAMPLE_TEXT_DIR
 #   SAMPLE_TEXT_SUFFIX
+#   SCREENSHOOTER
+#   TOP
 #   TTFAUTOHINT
 #   TTFAUTOHINT_FLAGS
+#   UNHINTED_FONT_DIR
+#   UNHINTED_FONT_URL
 #
 # We create a subdirectory `f' for all output files of font family `f'.
 #
@@ -50,10 +60,18 @@
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD.ttf
 #
 #   HTML_FILES += \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-yi.html \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-yi.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
@@ -62,6 +80,18 @@
 #     NotoSansHebrew/index.html
 #
 #   PNG_FILES += \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-he-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-he-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-he-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-yi-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-yi-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-yi-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-he-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-he-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-he-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-yi-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-yi-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-yi-win8.1_ie_11.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_firefox_37.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_chrome_42.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he-win8.1_ie_11.0.png \
@@ -74,6 +104,18 @@
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi-win8.1_firefox_37.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi-win8.1_chrome_42.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-he-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-he-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-he-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-yi-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-yi-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-yi-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-he-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-he-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-he-win8.1_ie_11.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-yi-win8.1_firefox_37.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-yi-win8.1_chrome_42.0.png \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-yi-win8.1_ie_11.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-he-win8.1_firefox_37.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-he-win8.1_chrome_42.0.png \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-he-win8.1_ie_11.0.png \
@@ -104,11 +146,14 @@
 #   \
 #       version=`$(FTDUMP) -n $(word 3,$^) \
 #                | sed -n '/version string/ { n; s/ *" *//g; p; q }'` \
-#       next="$(filter-out G,$(HINTING_MODES))"; \
+#       next=`echo unhinted manual G gGD unhinted manual G gGD \
+#             | sed "s/.*G \([^ ][^ ]*\).*/\1/"` \
 #       pngstem="$(notdir $(basename $@))" \
 #       title="NotoSansHebrew-Regular, \
 #              G hinting \
 #              (language he)" \
+#       fontname="NotoSansHebrew-Regular" \
+#       fonturl="NotoSansHebrew-Regular-G.ttf" \
 #       linkline="<a href=\"../index.html\">$(TOP)</a>\&nbsp;\&rsaquo;\\$(Newline) \
 #                 <a href=\"index.html\">NotoSansHebrew</a>\&nbsp;\&rsaquo;\\$(Newline) \
 #                 $$title" \
@@ -124,10 +169,11 @@
 #                <a href=\"$$pngstem-win8.1_chrome_42.0.png\">win8.1_chrome_42.0</a>\\$(Newline)"; \
 #       sed -e "s|@top@|$(TOP)|g" \
 #           -e "s|@title@|$$title|" \
-#           -e "s|@font-name@|NotoSansHebrew-$*-G| \
+#           -e "s|@font-name@|$$fontname-G| \
 #           -e "s|@font-version@|$$version|" \
-#           -e "s|@font-next@|NotoSansHebrew-$*-$$next|" \
-#           -e "s|@html-next@|NotoSansHebrew-$*-$$next-he.html|" \
+#           -e "s|@font-next@|$$fontname-$$next|" \
+#           -e "s|@font-url@|$$fonturl|" \
+#           -e "s|@html-next@|$$fontname-$$next-he.html|" \
 #           -e "s|@links@|$$links|" \
 #           -e "s|@lang@|he|" \
 #           -e "s|@text@|`cat $(word 2,$^)`|" \
@@ -165,10 +211,18 @@
 #
 #   NotoSansHebrew/index.html: \
 #     index-sub.html.in \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Regular-unhinted-yi.html \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Regular-manual-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Regular-gGD-yi.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-unhinted-yi.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-he.html \
+#     NotoSansHebrew/NotoSansHebrew-Bold-manual-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-he.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-G-yi.html \
 #     NotoSansHebrew/NotoSansHebrew-Bold-gGD-he.html \
@@ -201,7 +255,8 @@
 #
 # To be able to create make targets at all, we have to use the `eval'
 # function; this further implies to use `$$' instead `$' (except for macro
-# arguments) in the called macros to avoid premature expansion.
+# arguments) in the called macros to avoid premature expansion.  Note that
+# within `$(if ...)' we even have to use `$$$$' for the recipe part.
 
 define Newline
 
@@ -246,7 +301,7 @@ define Snapshots_ =
 endef
 
 
-HtmlSnapshots = $(eval $(call HtmlSnapshots_, $(1), $(2), $(3), $(4), $(5)))
+HtmlSnapshots = $(eval $(call HtmlSnapshots_, $(1), $(2), $(3), $(4), $(5), $(6)))
 
 define HtmlSnapshots_ =
   hs_fam := $$(strip $(1))
@@ -254,21 +309,36 @@ define HtmlSnapshots_ =
   hs_scr := $$(strip $(3))
   hs_lang := $$(strip $(4))
   hs_hmode := $$(strip $(5))
+  hs_hmodes := $$(strip $(6))
 
+  # Depending on the hinting mode we have to select different input TrueType
+  # font files.
   $$(hs_fam)/$$(hs_fam)-$$(hs_sty)-$$(hs_hmode)-$$(hs_lang).html: \
     waterfall.html.in \
     $$(hs_lang)-$$(hs_scr)_$$(SAMPLE_TEXT_SUFFIX) \
-    $$(hs_fam)/$$(hs_fam)-$$(hs_sty)-$$(hs_hmode).ttf \
+    $$(if $$(filter unhinted,$$(hs_hmode)), \
+      $$(UNHINTED_FONT_DIR)/$$(hs_fam)-$$(hs_sty).ttf, \
+      $$(if $$(filter manual,$$(hs_hmode)), \
+        $$(HINTED_FONT_DIR)/$$(hs_fam)-$$(hs_sty).ttf, \
+        $$(hs_fam)/$$(hs_fam)-$$(hs_sty)-$$(hs_hmode).ttf \
+      ) \
+    ) \
     | $$(hs_fam); \
 \
       version=`$$(FTDUMP) -n $$(word 3,$$^) \
                | sed -n '/version string/ { n; s/ *" *//g; p; q }'` \
-      next=`echo $$(HINTING_MODES) $$(HINTING_MODES) \
+      next=`echo $$(strip $(6)) $$(strip $(6)) \
             | sed "s/.*$$(strip $(5)) \([^ ][^ ]*\).*/\1/"` \
       pngstem="$$(notdir $$(basename $$@))" \
       title="$$(strip $(1))-$$(strip $(2)), \
-             $$(strip $(5)) hinting \
+             $$(strip $$(subst unhinted,no,$(5))) hinting \
              (language $$(strip $(4)))" \
+      fontname="$$(strip $(1))-$$(strip $(2))" \
+      fonturl="$$(strip $$(if $$(filter manual,$$(strip $(5))), \
+                              $$(HINTED_FONT_URL)/$$$$fontname.ttf, \
+                              $$(if $$(filter unhinted,$$(strip $(5))), \
+                                $$(UNHINTED_FONT_URL)/$$$$fontname.ttf, \
+                                $$$$fontname-$$(strip $(5)).ttf)))" \
       linkline="<a href=\"../index.html\">$$(TOP)</a>\&nbsp;\&rsaquo;\\$$(Newline) \
                 <a href=\"index.html\">$$(strip $(1))</a>\&nbsp;\&rsaquo;\\$$(Newline) \
                 $$$$title" \
@@ -281,10 +351,11 @@ define HtmlSnapshots_ =
                <a href=\"$$$$pngstem-$$(b).png\">$$(b)</a>\\$$(Newline))"; \
       sed -e "s|@top@|$$(TOP)|g" \
           -e "s|@title@|$$$$title|" \
-          -e "s|@font-name@|$$(strip $(1))-$$(strip $(2))-$$(strip $(5))|g" \
+          -e "s|@font-name@|$$$$fontname-$$(strip $(5))|g" \
           -e "s|@font-version@|$$$$version|" \
-          -e "s|@font-next@|$$(strip $(1))-$$(strip $(2))-$$$$next|" \
-          -e "s|@html-next@|$$(strip $(1))-$$(strip $(2))-$$$$next-$$(strip $(4)).html|" \
+          -e "s|@font-next@|$$$$fontname-$$$$next|" \
+          -e "s|@font-url@|$$$$fonturl|" \
+          -e "s|@html-next@|$$$$fontname-$$$$next-$$(strip $(4)).html|" \
           -e "s|@links@|$$$$links|" \
           -e "s|@lang@|$$(strip $(4))|g" \
           -e "s|@text@|`cat $$(word 2,$$^)`|g" \
@@ -296,7 +367,7 @@ define HtmlSnapshots_ =
 endef
 
 
-FontHtmlSnapshots = $(eval $(call FontHtmlSnapshots_, $(1), $(2), $(3), $(4), $(5)))
+FontHtmlSnapshots = $(eval $(call FontHtmlSnapshots_, $(1), $(2), $(3), $(4), $(5), $(6)))
 
 define FontHtmlSnapshots_ =
   fh_fam := $$(strip $(1))
@@ -304,16 +375,19 @@ define FontHtmlSnapshots_ =
   fh_scr := $$(strip $(3))
   fh_lang := $$(strip $(4))
   fh_hmode := $$(strip $(5))
+  fh_hmodes := $$(strip $(6))
 
-  $$(fh_fam)/$$(fh_fam)-$$(fh_sty)-$$(fh_hmode).ttf: \
-    $$(fh_fam)-$$(fh_sty).ttf \
-    | $$(fh_fam); \
+  $$(if $$(filter-out unhinted manual,$$(fh_hmode)), \
+    $$(fh_fam)/$$(fh_fam)-$$(fh_sty)-$$(fh_hmode).ttf: \
+      $$(fh_fam)-$$(fh_sty).ttf \
+      | $$(fh_fam); \
 \
-      $$(TTFAUTOHINT) $$(TTFAUTOHINT_FLAGS) \
-        -w $$(strip $(5)) -F "-$$(strip $(5))" $$< $$@
+        $$$$(TTFAUTOHINT) $$$$(TTFAUTOHINT_FLAGS) \
+          -w $$$$(strip $(5)) -F "-$$$$(strip $(5))" $$$$< $$$$@ \
+  )
 
   $$(foreach l,$$(fh_lang), \
-    $$(call HtmlSnapshots, $(1), $(2), $(3), $$(l), $(5)))
+    $$(call HtmlSnapshots, $(1), $(2), $(3), $$(l), $(5), $(6)))
 endef
 
 
@@ -322,6 +396,20 @@ AddFile = $(eval $(call AddFile_, $(1), $(2)))
 define AddFile_
   $(1) += $(2)
 endef
+
+# We must filter out the `manual' hinting mode if there is no manually
+# hinted TrueType font.
+CheckHinted = $(eval $(call CheckHinted_))
+
+define CheckHinted_
+  # It's necessary here to use the `shell' function instead of backticks,
+  # synchronizing the moment of expansion with the other stuff.
+  ch_hinted := $$(shell ls "$$(HINTED_FONT_DIR)/$$(ff_fam)-$$(s).ttf" 2> /dev/null)
+
+  ff_hmodes := $$(if $$(ch_hinted),$$(HINTING_MODES), \
+                                   $$(filter-out manual,$$(HINTING_MODES)))
+endef
+
 
 FontFamily = $(eval $(call FontFamily_, $(1), $(2), $(3), $(4)))
 
@@ -332,10 +420,14 @@ define FontFamily_ =
   ff_lang := $$(strip $(4))
 
   $$(foreach s,$$(ff_sty), \
-    $$(foreach hm,$$(HINTING_MODES), \
-      $$(call AddFile, \
-              TTF_FILES, \
-              $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm).ttf) \
+    $$(call CheckHinted) \
+\
+    $$(foreach hm,$$(ff_hmodes), \
+      $$(if $$(filter-out unhinted manual,$$(hm)), \
+        $$(call AddFile, \
+                TTF_FILES, \
+                $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm).ttf) \
+      ) \
 \
       $$(foreach l,$$(ff_lang), \
         $$(call AddFile, \
@@ -352,7 +444,9 @@ define FontFamily_ =
   $$(ff_fam)/index.html: \
     index-sub.html.in \
     $$(foreach s,$$(ff_sty), \
-      $$(foreach hm,$$(HINTING_MODES), \
+      $$(call CheckHinted) \
+\
+      $$(foreach hm,$$(ff_hmodes), \
         $$(foreach l,$$(ff_lang), \
           $$(ff_fam)/$$(ff_fam)-$$(s)-$$(hm)-$$(l).html))) \
     | $$(ff_fam); \
@@ -368,8 +462,10 @@ define FontFamily_ =
   INDEX_ENTRIES += $$(ff_fam)/index.html
 
   $$(foreach s,$$(ff_sty), \
-    $$(foreach hm,$$(HINTING_MODES), \
-      $$(call FontHtmlSnapshots, $(1), $$(s), $(3), $(4), $$(hm))))
+    $$(call CheckHinted) \
+\
+    $$(foreach hm,$$(ff_hmodes), \
+      $$(call FontHtmlSnapshots, $(1), $$(s), $(3), $(4), $$(hm), $$(ff_hmodes))))
 
   $$(ff_fam): ; \
     -mkdir $$@
