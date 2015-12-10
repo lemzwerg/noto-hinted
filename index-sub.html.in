@@ -54,6 +54,15 @@
 @font-list@
   </ul>
 
+  <p>The filenames indicate the mode used by ttfautohint: <code>-G-</code>
+    means strong hinting for GDI ClearType only, while <code>-gGD-</code>
+    indicates strong hinting for all hinting modes (grayscale, GDI, and
+    DWrite ClearType).</p>
+
+  <p>Take care when looking at the PNGs using Mac Retina or other high-DPI
+    screens to prevent the browser extrapolating the image to the higher
+    resolution of the screen.</p>
+
   <p class="updated">Last update: @date@</p>
 </body>
 </html>
