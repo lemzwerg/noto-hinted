@@ -144,6 +144,9 @@ $(call FontFamily, NotoNastaliqUrdu, Regular,      Arab, ur)
 $(call FontFamily, NotoSansLao,      Regular Bold, Laoo, lo)
 $(call FontFamily, NotoSerifLao,     Regular Bold, Laoo, lo)
 
+$(call FontFamily, NotoSansKhmer,    Regular Bold, Khmr, km)
+$(call FontFamily, NotoSerifKhmer,   Regular Bold, Khmr, km)
+
 
 # This macro generates the top-level targets.
 #
