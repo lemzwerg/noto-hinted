@@ -358,7 +358,7 @@ define HtmlSnapshots_ =
           -e "s|@html-next@|$$$$fontname-$$$$next-$$(strip $(4)).html|" \
           -e "s|@links@|$$$$links|" \
           -e "s|@lang@|$$(strip $(4))|g" \
-          -e "s|@text@|`cat $$(word 2,$$^)`|g" \
+          -e "s+@text@+`cat $$(word 2,$$^)`+g" \
           < $$< \
           > $$@
 
