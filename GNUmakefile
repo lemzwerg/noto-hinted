@@ -130,26 +130,28 @@ BROWSERS ?= win8.1_ie_11.0 \
 
 # Add new fonts here.
 #
-$(call FontFamily, NotoSans,         Regular Bold Italic BoldItalic, Latn, en cs vi)
-$(call FontFamily, NotoSerif,        Regular Bold Italic BoldItalic, Latn, en cs vi)
+$(call FontFamily, NotoSans,           Regular Bold Italic BoldItalic, Latn, en cs vi)
+$(call FontFamily, NotoSerif,          Regular Bold Italic BoldItalic, Latn, en cs vi)
 
-$(call FontFamily, NotoSansHebrew,   Regular Bold, Hebr, he yi)
+$(call FontFamily, NotoSansHebrew,     Regular Bold, Hebr, he yi)
 
-$(call FontFamily, NotoSansThai,     Regular Bold, Thai, th)
-$(call FontFamily, NotoSerifThai,    Regular Bold, Thai, th)
+$(call FontFamily, NotoSansThai,       Regular Bold, Thai, th)
+$(call FontFamily, NotoSerifThai,      Regular Bold, Thai, th)
 
-$(call FontFamily, NotoNaskhArabic,  Regular Bold, Arab, ar fa)
-$(call FontFamily, NotoNastaliqUrdu, Regular,      Arab, ur)
+$(call FontFamily, NotoNaskhArabic,    Regular Bold, Arab, ar fa)
+$(call FontFamily, NotoNastaliqUrdu,   Regular,      Arab, ur)
 
-$(call FontFamily, NotoSansLao,      Regular Bold, Laoo, lo)
-$(call FontFamily, NotoSerifLao,     Regular Bold, Laoo, lo)
+$(call FontFamily, NotoSansLao,        Regular Bold, Laoo, lo)
+$(call FontFamily, NotoSerifLao,       Regular Bold, Laoo, lo)
 
-$(call FontFamily, NotoSansKhmer,    Regular Bold, Khmr, km)
-$(call FontFamily, NotoSerifKhmer,   Regular Bold, Khmr, km)
+$(call FontFamily, NotoSansKhmer,      Regular Bold, Khmr, km)
+$(call FontFamily, NotoSerifKhmer,     Regular Bold, Khmr, km)
 
-$(call FontFamily, NotoSansMyanmar,  Regular Bold, Mymr, my)
+$(call FontFamily, NotoSansMyanmar,    Regular Bold, Mymr, my)
 
-$(call FontFamily, NotoSansBengali,  Regular Bold, Beng, bn)
+$(call FontFamily, NotoSansBengali,    Regular Bold, Beng, bn)
+
+$(call FontFamily, NotoSansDevanagari, Regular Bold, Deva, hi)
 
 
 # This macro generates the top-level targets.
