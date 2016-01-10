@@ -150,6 +150,7 @@ $(call FontFamily, NotoSerifKhmer,     Regular Bold, Khmr, km)
 $(call FontFamily, NotoSansMyanmar,    Regular Bold, Mymr, my)
 
 $(call FontFamily, NotoSansBengali,    Regular Bold, Beng, bn)
+$(call FontFamily, NotoSerifBengali,   Regular Bold, Beng, bn)
 
 $(call FontFamily, NotoSansDevanagari, Regular Bold, Deva, hi)
 
