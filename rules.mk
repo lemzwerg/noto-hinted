@@ -189,11 +189,12 @@
 #     | NotoSansHebrew; \
 #   \
 #       screenshot_url=`$(SCREENSHOOTER) shoot \
+#                         --quiet \
 #                         --url=$(RAWGIT)/$< \
 #                         --wait \
 #                        win8.1_firefox_37.0.yaml`; \
 #       test $? -eq 0 \
-#         && curl -o $@-img.$$$$ $$screenshot_url/win8.1_firefox_37.0.png \
+#         && curl -s -o $@-img.$$$$ $$screenshot_url/win8.1_firefox_37.0.png \
 #         && convert -font $(LABEL_FONT) -pointsize 20 label:$(notdir $@) pnm:- \
 #         | pnmcrop -margin=8 \
 #         > $@-text.$$$$ \
@@ -282,11 +283,12 @@ define Snapshots_ =
     | $$(s_fam); \
 \
       screenshot_url=`$$(SCREENSHOOTER) shoot \
+                        --quiet \
                         --url=$$(RAWGIT)/$$< \
                         --wait \
                         $$(strip $(5)).yaml`; \
       test $$$$? -eq 0 \
-        && curl -o $$@-img.$$$$$$$$ $$$$screenshot_url/$$(strip $(5)).png \
+        && curl -s -o $$@-img.$$$$$$$$ $$$$screenshot_url/$$(strip $(5)).png \
         && convert -font $$(LABEL_FONT) -pointsize 20 label:$$(notdir $$@) pnm:- \
         | pnmcrop -margin=8 \
         > $$@-text.$$$$$$$$ \
