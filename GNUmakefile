@@ -154,6 +154,9 @@ $(call FontFamily, NotoSerifBengali,   Regular Bold, Beng, bn)
 
 $(call FontFamily, NotoSansDevanagari, Regular Bold, Deva, hi)
 
+$(call FontFamily, NotoSansKannada,    Regular Bold, Knda, kn)
+$(call FontFamily, NotoSerifKannada,   Regular Bold, Knda, kn)
+
 
 # This macro generates the top-level targets.
 #
