@@ -160,6 +160,8 @@ $(call FontFamily, NotoSerifKannada,   Regular Bold, Knda, kn)
 $(call FontFamily, NotoSansMalayalam,  Regular Bold, Mlym, ml)
 $(call FontFamily, NotoSerifMalayalam, Regular Bold, Mlym, ml)
 
+$(call FontFamily, NotoSansSinhala,    Regular Bold, Sinh, si)
+
 
 # This macro generates the top-level targets.
 #
