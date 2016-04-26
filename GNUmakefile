@@ -171,6 +171,9 @@ $(call FontFamily, NotoSerifTelugu,    Regular Bold, Telu, te)
 $(call FontFamily, NotoSansGeorgian,   Regular Bold, Geor, ka)
 $(call FontFamily, NotoSerifGeorgian,  Regular Bold, Geor, ka)
 
+$(call FontFamily, NotoSansGujarati,   Regular Bold, Gujr, gu)
+$(call FontFamily, NotoSerifGujarati,  Regular Bold, Gujr, gu)
+
 
 # This macro generates the top-level targets.
 #
