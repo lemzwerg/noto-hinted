@@ -176,6 +176,8 @@ $(call FontFamily, NotoSerifGujarati,  Regular Bold, Gujr, gu)
 
 $(call FontFamily, NotoSansGurmukhi,   Regular Bold, Guru, pa)
 
+$(call FontFamily, NotoSansArmenian,   Regular Bold, Armn, hy)
+$(call FontFamily, NotoSerifArmenian,  Regular Bold, Armn, hy)
 
 # This macro generates the top-level targets.
 #
