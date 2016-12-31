@@ -1,3 +1,8 @@
 2015-Nov-08
 
   Initial font upload, using ttfautohint version 1.4.1.6-7c54.
+
+2016-Dez-31
+
+  Regenerate the much enlarged collection of fonts with ttfautohint
+  version 1.6.

@@ -1,4 +1,4 @@
-# Copyright 2015 by
+# Copyright 2015-2016 by
 # Werner Lemberg <wl@gnu.org>.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -25,6 +25,10 @@
 #   $(4)  two or more 2-letter language tags (following ISO 639-1, e.g., `ar
 #         fa'), or 3-letter tags if there doesn't exist a 2-letter tag
 #         (following ISO 639-2, e.g., `yao').
+#
+# The first value of `$(2)' (properly expanded to a file name) is used as a
+# ttfautohint reference hinting font for all fonts to be created by the
+# rule.
 #
 # The following variables must be set; see the top-level `Makefile' for
 # explanations.
@@ -250,7 +254,7 @@
 # those temporary variables normally have different values (from later calls
 # to `FontFamily').
 #
-# The body (i.e., the third argument) of the `foreach' function that create
+# The body (i.e., the third argument) of the `foreach' function that creates
 # multiple targets must be encapsulated in separate multi-line variables;
 # otherwise you get syntax warnings related to newline issues.
 #
@@ -369,7 +373,7 @@ define HtmlSnapshots_ =
 endef
 
 
-FontHtmlSnapshots = $(eval $(call FontHtmlSnapshots_, $(1), $(2), $(3), $(4), $(5), $(6)))
+FontHtmlSnapshots = $(eval $(call FontHtmlSnapshots_, $(1), $(2), $(3), $(4), $(5), $(6), $(7)))
 
 define FontHtmlSnapshots_ =
   fh_fam := $$(strip $(1))
@@ -378,14 +382,20 @@ define FontHtmlSnapshots_ =
   fh_lang := $$(strip $(4))
   fh_hmode := $$(strip $(5))
   fh_hmodes := $$(strip $(6))
+  fh_ref := $$(strip $(7))
 
   $$(if $$(filter-out unhinted manual,$$(fh_hmode)), \
     $$(fh_fam)/$$(fh_fam)-$$(fh_sty)-$$(fh_hmode).ttf: \
       $$(fh_fam)-$$(fh_sty).ttf \
+      $$(fh_fam)-$$(fh_ref).ttf \
       | $$(fh_fam); \
 \
         $$$$(TTFAUTOHINT) $$$$(TTFAUTOHINT_FLAGS) \
-          -w $$$$(strip $(5)) -F "-$$$$(strip $(5))" $$$$< $$$$@ \
+          -w $$$$(strip $(5)) \
+          -F "-$$$$(strip $(5))" \
+          -R "$$$$(word 2,$$$$+)" \
+          $$$$< \
+          $$$$@ \
   )
 
   $$(foreach l,$$(fh_lang), \
@@ -467,7 +477,7 @@ define FontFamily_ =
     $$(call CheckHinted) \
 \
     $$(foreach hm,$$(ff_hmodes), \
-      $$(call FontHtmlSnapshots, $(1), $$(s), $(3), $(4), $$(hm), $$(ff_hmodes))))
+      $$(call FontHtmlSnapshots, $(1), $$(s), $(3), $(4), $$(hm), $$(ff_hmodes), $$(firstword $$(ff_sty)))))
 
   $$(ff_fam): ; \
     -mkdir $$@
