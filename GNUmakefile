@@ -144,40 +144,20 @@ BROWSERS ?= win8.1_ie_11.0 \
 $(call FontFamily, NotoSans,           Regular Bold Italic BoldItalic, Latn, en cs vi)
 $(call FontFamily, NotoSerif,          Regular Bold Italic BoldItalic, Latn, en cs vi)
 
-$(call FontFamily, NotoSansHebrew,     Regular Bold, Hebr, he yi)
-
-$(call FontFamily, NotoSansThai,       Regular Bold, Thai, th)
-$(call FontFamily, NotoSerifThai,      Regular Bold, Thai, th)
-
 $(call FontFamily, NotoNaskhArabic,    Regular Bold, Arab, ar fa)
 $(call FontFamily, NotoNastaliqUrdu,   Regular,      Arab, ur)
 
-$(call FontFamily, NotoSansLao,        Regular Bold, Laoo, lo)
-$(call FontFamily, NotoSerifLao,       Regular Bold, Laoo, lo)
-
-$(call FontFamily, NotoSansKhmer,      Regular Bold, Khmr, km)
-$(call FontFamily, NotoSerifKhmer,     Regular Bold, Khmr, km)
-
-$(call FontFamily, NotoSansMyanmar,    Regular Bold, Mymr, my)
+$(call FontFamily, NotoSansArmenian,   Regular Bold, Armn, hy)
+$(call FontFamily, NotoSerifArmenian,  Regular Bold, Armn, hy)
 
 $(call FontFamily, NotoSansBengali,    Regular Bold, Beng, bn)
 $(call FontFamily, NotoSerifBengali,   Regular Bold, Beng, bn)
 
+$(call FontFamily, NotoSansCherokee,   Regular,      Cher, chr)
+
 $(call FontFamily, NotoSansDevanagari, Regular Bold, Deva, hi)
 
-$(call FontFamily, NotoSansKannada,    Regular Bold, Knda, kn)
-$(call FontFamily, NotoSerifKannada,   Regular Bold, Knda, kn)
-
-$(call FontFamily, NotoSansMalayalam,  Regular Bold, Mlym, ml)
-$(call FontFamily, NotoSerifMalayalam, Regular Bold, Mlym, ml)
-
-$(call FontFamily, NotoSansSinhala,    Regular Bold, Sinh, si)
-
-$(call FontFamily, NotoSansTamil,      Regular Bold, Taml, ta)
-$(call FontFamily, NotoSerifTamil,     Regular Bold, Taml, ta)
-
-$(call FontFamily, NotoSansTelugu,     Regular Bold, Telu, te)
-$(call FontFamily, NotoSerifTelugu,    Regular Bold, Telu, te)
+$(call FontFamily, NotoSansEthiopic,   Regular Bold, Ethi, am)
 
 $(call FontFamily, NotoSansGeorgian,   Regular Bold, Geor, ka)
 $(call FontFamily, NotoSerifGeorgian,  Regular Bold, Geor, ka)
@@ -187,12 +167,32 @@ $(call FontFamily, NotoSerifGujarati,  Regular Bold, Gujr, gu)
 
 $(call FontFamily, NotoSansGurmukhi,   Regular Bold, Guru, pa)
 
-$(call FontFamily, NotoSansArmenian,   Regular Bold, Armn, hy)
-$(call FontFamily, NotoSerifArmenian,  Regular Bold, Armn, hy)
+$(call FontFamily, NotoSansHebrew,     Regular Bold, Hebr, he yi)
 
-$(call FontFamily, NotoSansEthiopic,   Regular Bold, Ethi, am)
+$(call FontFamily, NotoSansKannada,    Regular Bold, Knda, kn)
+$(call FontFamily, NotoSerifKannada,   Regular Bold, Knda, kn)
 
-$(call FontFamily, NotoSansCherokee,   Regular,      Cher, chr)
+$(call FontFamily, NotoSansKhmer,      Regular Bold, Khmr, km)
+$(call FontFamily, NotoSerifKhmer,     Regular Bold, Khmr, km)
+
+$(call FontFamily, NotoSansLao,        Regular Bold, Laoo, lo)
+$(call FontFamily, NotoSerifLao,       Regular Bold, Laoo, lo)
+
+$(call FontFamily, NotoSansMalayalam,  Regular Bold, Mlym, ml)
+$(call FontFamily, NotoSerifMalayalam, Regular Bold, Mlym, ml)
+
+$(call FontFamily, NotoSansMyanmar,    Regular Bold, Mymr, my)
+
+$(call FontFamily, NotoSansSinhala,    Regular Bold, Sinh, si)
+
+$(call FontFamily, NotoSansTamil,      Regular Bold, Taml, ta)
+$(call FontFamily, NotoSerifTamil,     Regular Bold, Taml, ta)
+
+$(call FontFamily, NotoSansTelugu,     Regular Bold, Telu, te)
+$(call FontFamily, NotoSerifTelugu,    Regular Bold, Telu, te)
+
+$(call FontFamily, NotoSansThai,       Regular Bold, Thai, th)
+$(call FontFamily, NotoSerifThai,      Regular Bold, Thai, th)
 
 # This macro generates the top-level targets.
 #
