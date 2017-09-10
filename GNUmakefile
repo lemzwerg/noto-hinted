@@ -153,6 +153,8 @@ $(call FontFamily, NotoSerifArmenian,  Regular Bold, Armn, hy)
 $(call FontFamily, NotoSansBengali,    Regular Bold, Beng, bn)
 $(call FontFamily, NotoSerifBengali,   Regular Bold, Beng, bn)
 
+$(call FontFamily, NotoSansCanadianAboriginal, Regular, Cans, iu oj)
+
 $(call FontFamily, NotoSansCherokee,   Regular,      Cher, chr)
 
 $(call FontFamily, NotoSansDevanagari, Regular Bold, Deva, hi)
@@ -193,6 +195,10 @@ $(call FontFamily, NotoSerifTelugu,    Regular Bold, Telu, te)
 
 $(call FontFamily, NotoSansThai,       Regular Bold, Thai, th)
 $(call FontFamily, NotoSerifThai,      Regular Bold, Thai, th)
+
+$(call FontFamily, NotoSansTifinagh,   Regular,      Tfng, zgh)
+
+$(call FontFamily, NotoSansVai,        Regular,      Vaii, vai)
 
 # This macro generates the top-level targets.
 #
